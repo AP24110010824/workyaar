@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register | WorkYaar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="/css/global.css" rel="stylesheet">
+<link href="/css/pages/register.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="auth-page">
+
+<div class="auth-card">
+  <div class="auth-logo">
+    <a href="/" style="text-decoration:none;"><div class="brand">WorkYaar<span style="color:var(--primary);">.</span></div></a>
+    <div class="sub">Career Portal</div>
+  </div>
+  
+  <h2 class="auth-title text-center">Create Account</h2>
+  <div class="auth-sub text-center">Join WorkYaar to find your next opportunity.</div>
+
+  <form id="registerForm">
+    <!-- ROLE -->
+    <div class="role-selection">
+      <button type="button" class="role-btn role-toggle active" data-role="job_seeker">Job Seeker</button>
+      <button type="button" class="role-btn role-toggle" data-role="employer">Employer</button>
+    </div>
+
+    <!-- NAME -->
+    <div class="form-group">
+      <label class="form-label">Full Name</label>
+      <input type="text" class="form-input" id="full_name" placeholder="Alex Chen" required>
+    </div>
+
+    <!-- EMAIL -->
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" class="form-input" id="email" placeholder="you@example.com" required>
+    </div>
+
+    <!-- PASSWORD -->
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-input" id="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required>
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="form-group">
+      <label class="form-label">Category</label>
+      <select class="form-input" id="category_type" required>
+        <option value="">Select Category</option>
+        <option value="IT">IT</option>
+        <option value="NON_IT">Non-IT</option>
+        <option value="LABOUR">Labour</option>
+        <option value="SERVICES">Services</option>
+      </select>
+    </div>
+
+    <!-- JOB TYPE -->
+    <div class="form-group" id="jobTypeGroup">
+      <label class="form-label">Work Type</label>
+      <select class="form-input" id="job_type_id">
+        <option value="">Select Work Type</option>
+        <option value="1">Full-Time</option>
+        <option value="2">Part-Time</option>
+        <option value="3">Freelance</option>
+        <option value="4">Internship</option>
+      </select>
+    </div>
+
+    <!-- COMPANY SECTION -->
+    <div id="companySection" style="display:none;">
+      <div class="form-group">
+        <label class="form-label">Company Setup</label>
+        <select class="form-input" id="company_mode">
+          <option value="create">Create New Company</option>
+          <option value="join">Join Existing Company</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="createCompanyGroup">
+        <label class="form-label">Company Name</label>
+        <input type="text" class="form-input" id="company_name" placeholder="Acme Corp">
+      </div>
+
+      <div class="form-group" id="joinCompanyGroup" style="display:none;">
+        <label class="form-label">Select Company</label>
+        <select class="form-input" id="company_id">
+          <option value="">Loading...</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- SOURCE -->
+    <div class="form-group mb-24">
+      <label class="form-label">How did you hear about us?</label>
+      <select class="form-input" id="source" required>
+        <option value="">Select an option</option>
+        <option value="google">Google</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="friend">Friend</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-full btn-lg">Create Account</button>
+  </form>
+
+  <div class="signup">
+    Already have an account? <a href="/login.html">Sign In</a>
+  </div>
+</div>
+
+<script>
+let selectedRole = 3;
+
+function selectRole(role, btn){
+  const roleMap = { job_seeker: 3, employer: 2 };
+  selectedRole = roleMap[role];
+
+  document.querySelectorAll(".role-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+
+  if(role === "employer"){
+    document.getElementById("jobTypeGroup").style.display = "none";
+    document.getElementById("companySection").style.display = "block";
+    loadCompanies();
+  } else {
+    document.getElementById("jobTypeGroup").style.display = "block";
+    document.getElementById("companySection").style.display = "none";
+  }
+}
+
+function toggleCompanyMode(){
+  const mode = document.getElementById("company_mode").value;
+  if(mode === "create"){
+    document.getElementById("createCompanyGroup").style.display = "block";
+    document.getElementById("joinCompanyGroup").style.display = "none";
+  } else {
+    document.getElementById("createCompanyGroup").style.display = "none";
+    document.getElementById("joinCompanyGroup").style.display = "block";
+    loadCompanies();
+  }
+}
+
+async function loadCompanies(){
+  try{
+    const res = await fetch("/api/companies");
+    const data = await res.json();
+    const select = document.getElementById("company_id");
+    select.innerHTML = `<option value="">Select Company</option>`;
+    (data.companies || []).forEach(c=>{
+      select.innerHTML += `<option value="${c.id}">${c.company_name}</option>`;
+    });
+  }catch(e){
+    console.log(e);
+  }
+}
+
+document.getElementById("registerForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  let company_mode = null;
+  let company_name = null;
+  let company_id = null;
+
+  if(selectedRole === 2){
+    company_mode = document.getElementById("company_mode").value;
+    if(company_mode === "create"){
+      company_name = document.getElementById("company_name").value;
+    } else {
+      company_id = document.getElementById("company_id").value;
+    }
+  }
+
+  const data = {
+    full_name: document.getElementById("full_name").value,
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value,
+    role_id: selectedRole,
+    category_type: document.getElementById("category_type").value,
+    job_type_id: selectedRole === 3 ? document.getElementById("job_type_id").value : null,
+    source: document.getElementById("source").value,
+    company_mode,
+    company_name,
+    company_id
+  };
+
+  const btn = document.querySelector(".btn-primary");
+  btn.disabled = true;
+  btn.innerHTML = "<div class='spinner' style='display:inline-block;margin-right:8px;'></div> Registering...";
+
+  try {
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if(res.ok){
+      alert("Account Created ðŸš€");
+      window.location.href = "/login.html";
+    } else {
+      alert(result.message || "Failed");
+      btn.disabled = false;
+      btn.innerText = "Create Account";
+    }
+  } catch(e) {
+    alert("Server error");
+    btn.disabled = false;
+    btn.innerText = "Create Account";
+  }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  selectRole('job_seeker', document.querySelector(".role-btn.active"));
+  
+  document.querySelectorAll(".role-toggle").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const role = e.target.getAttribute("data-role");
+      selectRole(role, e.target);
+    });
+  });
+
+  document.getElementById("company_mode").addEventListener("change", toggleCompanyMode);
+});
+</script>
+
+</body>
+</html>

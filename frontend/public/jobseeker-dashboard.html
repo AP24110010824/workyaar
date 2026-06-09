@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorkYaar | Job Seeker Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="/css/global.css" rel="stylesheet">
+  <link href="/css/pages/jobseeker-dashboard.css" rel="stylesheet">
+</head>
+<body>
+  <div class="dashboard-shell">
+    <aside class="dash-sidebar" id="sidebar">
+      <a class="dash-brand" href="/">
+        <span class="dash-brand-mark">W</span>
+        <span>WorkYaar<span>.</span></span>
+      </a>
+
+      <nav class="dash-nav" aria-label="Jobseeker navigation">
+        <button class="menu-item active" data-section="dashboard" type="button"><span class="material-symbols-outlined">dashboard</span>Dashboard</button>
+        <button class="menu-item" data-section="profile" type="button"><span class="material-symbols-outlined">person</span>Profile</button>
+        <button class="menu-item" data-section="jobs" type="button"><span class="material-symbols-outlined">work</span>Jobs</button>
+        <button class="menu-item" data-section="applications" type="button"><span class="material-symbols-outlined">send</span>Applications</button>
+        <button class="menu-item" data-section="saved" type="button"><span class="material-symbols-outlined">bookmark</span>Saved Jobs</button>
+        <button class="menu-item" data-section="discover" type="button"><span class="material-symbols-outlined">explore</span>Discover</button>
+        <button class="menu-item" data-section="gigs" type="button"><span class="material-symbols-outlined">bolt</span>On-demand Gigs</button>
+        <button class="menu-item" data-section="messages" type="button"><span class="material-symbols-outlined">mail</span>Message</button>
+        <button class="menu-item" data-section="interviews" type="button"><span class="material-symbols-outlined">forum</span>Interviews</button>
+        <button class="menu-item" data-section="pro" type="button"><span class="material-symbols-outlined">workspace_premium</span>WorkYaar Pro</button>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="avatar-photo">AR</div>
+        <div>
+          <strong id="sidebarName">Alex Rivera</strong>
+          <span>Senior Designer</span>
+        </div>
+      </div>
+
+      <button class="logout-link" id="logoutBtn" type="button">
+        <span class="material-symbols-outlined">logout</span> Logout
+      </button>
+    </aside>
+
+    <main class="dash-main">
+      <header class="dash-topbar">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+
+        <div class="dash-search">
+          <span class="material-symbols-outlined">search</span>
+          <input id="keyword" type="search" placeholder="Search for opportunities...">
+        </div>
+
+        <div class="topbar-actions">
+          <button class="notify-btn" type="button" aria-label="Notifications">
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <button class="quick-apply" type="button">
+            <span class="material-symbols-outlined">bolt</span> Quick Apply
+          </button>
+        </div>
+      </header>
+
+      <div class="dash-content">
+        <h1 class="sr-only" id="pageTitle">Dashboard</h1>
+
+        <section id="dashboard" class="section active">
+          <div class="welcome-grid">
+            <div class="welcome-copy">
+              <h2>Welcome back, <span id="welcomeName">Alex</span>! <span class="wave">wave</span></h2>
+              <p>Your profile is getting noticed. Keep it fresh for 3x more visibility.</p>
+            </div>
+
+            <div class="profile-progress-card" data-section-jump="profile">
+              <div class="progress-top">
+                <span>Profile Completion</span>
+                <strong id="profileCompletion">85%</strong>
+              </div>
+              <div class="progress-track"><div class="progress-fill" id="completionBar" style="width:85%"></div></div>
+              <button type="button">Complete your portfolio</button>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="metric-card">
+              <div class="metric-icon blue"><span class="material-symbols-outlined">send</span></div>
+              <p>Applications Sent</p>
+              <strong id="appliedCount">24</strong>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon purple"><span class="material-symbols-outlined">forum</span></div>
+              <p>Interviews</p>
+              <strong id="interviewCount">12</strong>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon slate"><span class="material-symbols-outlined">bookmark</span></div>
+              <p>Saved Jobs</p>
+              <strong id="savedCount">45</strong>
+            </article>
+            <article class="metric-card views-card">
+              <p>Profile Views</p>
+              <strong id="viewCount">1,204</strong>
+              <span class="material-symbols-outlined">visibility</span>
+            </article>
+          </div>
+
+          <section class="dash-block">
+            <div class="block-heading">
+              <h2>Active Applications</h2>
+              <button class="link-button" data-section-jump="applications" type="button">View all (24)</button>
+            </div>
+            <div class="application-grid" id="activeApplicationsPreview">
+              <article class="application-card">
+                <div class="app-card-top">
+                  <div class="company-mark blue-mark"><span class="material-symbols-outlined">layers</span></div>
+                  <span class="status-pill blue-pill">In Review</span>
+                </div>
+                <h3>Lead Product Designer</h3>
+                <p>Stellar Systems &bull; Remote</p>
+                <div class="app-card-bottom"><span>Applied 3 days ago</span><span class="material-symbols-outlined">chevron_right</span></div>
+              </article>
+              <article class="application-card">
+                <div class="app-card-top">
+                  <div class="company-mark purple-mark"><span class="material-symbols-outlined">deployed_code</span></div>
+                  <span class="status-pill purple-pill">Interviewing</span>
+                </div>
+                <h3>Senior UX Architect</h3>
+                <p>Creative Pulse &bull; New York</p>
+                <div class="app-card-bottom"><span>Applied 1 week ago</span><span class="material-symbols-outlined">chevron_right</span></div>
+              </article>
+              <article class="application-card urgent-card">
+                <div class="app-card-top">
+                  <div class="company-mark dark-mark"><span class="material-symbols-outlined">close</span></div>
+                  <span class="status-pill red-pill">Urgent Action Required</span>
+                </div>
+                <h3>Visual Design Lead</h3>
+                <p>Nexus Global &bull; London</p>
+                <div class="app-card-bottom urgent"><span>Schedule your final interview</span><span class="material-symbols-outlined">event_available</span></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="dash-block">
+            <div class="block-heading with-filters">
+              <div>
+                <h2>Recommended for You</h2>
+                <p>Based on your Senior Designer experience</p>
+              </div>
+              <div class="filter-pills">
+                <button class="active" type="button">Design</button>
+                <button type="button">Full-time</button>
+                <button type="button">Remote</button>
+              </div>
+            </div>
+            <div class="recommended-list" id="recommendedJobs">
+              <article class="recommended-card">
+                <div class="company-mark blue-mark"><span class="material-symbols-outlined">paid</span></div>
+                <div>
+                  <h3>Creative Director, Brand</h3>
+                  <p>Finova Tech &bull; San Francisco, CA</p>
+                </div>
+                <strong>$180k - $220k</strong>
+                <div class="rec-tags"><span>Branding</span><span>Leadership</span></div>
+                <button type="button">Apply Now</button>
+              </article>
+              <article class="recommended-card">
+                <div class="company-mark orange-mark"><span class="material-symbols-outlined">cyclone</span></div>
+                <div>
+                  <h3>Principal UX Designer</h3>
+                  <p>Velocity AI &bull; Remote</p>
+                </div>
+                <strong>$165k - $195k</strong>
+                <div class="rec-tags"><span>AI/ML</span><span>Figma</span></div>
+                <button type="button">Apply Now</button>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <section id="profile" class="section">
+          <div class="panel-heading">
+            <h2>Profile</h2>
+            <div class="panel-actions">
+              <button class="btn-soft" id="editBtn" onclick="enableEdit()" type="button">Edit Profile</button>
+              <button class="btn-primary-local" id="saveBtn" onclick="saveProfile()" type="button" style="display:none;">Save Changes</button>
+            </div>
+          </div>
+
+          <div class="profile-grid">
+            <div class="profile-card">
+              <div class="avatar-large" id="profileAvatar">A</div>
+              <h3 id="previewName">Alex Rivera</h3>
+              <p id="previewTitle">Senior Designer</p>
+              <div class="mini-list">
+                <span><span class="material-symbols-outlined">location_on</span><b id="previewLocation">Remote</b></span>
+                <span><span class="material-symbols-outlined">mail</span><b id="previewEmail">email</b></span>
+              </div>
+            </div>
+
+            <div class="form-panel">
+              <div class="form-row">
+                <label>Full Name<input id="full_name" disabled></label>
+                <label>Email<input id="email" disabled></label>
+              </div>
+              <div class="form-row">
+                <label>Mobile<input id="mobile" disabled></label>
+                <label>Location<input id="location" disabled></label>
+              </div>
+              <div class="form-row">
+                <label>Experience<input id="experience" disabled></label>
+                <label>LinkedIn<input id="linkedin" disabled></label>
+              </div>
+              <div class="form-row">
+                <label>GitHub<input id="github" disabled></label>
+                <label>Portfolio<input id="portfolio" disabled></label>
+              </div>
+              <label>Professional Summary<textarea id="summary" disabled></textarea></label>
+            </div>
+
+            <div class="form-panel">
+              <h3>Resume</h3>
+              <input type="file" id="resumeUpload" accept=".pdf,.doc,.docx">
+              <div id="resumeStatus" class="resume-status">No resume uploaded yet</div>
+              <h3>Skills</h3>
+              <div class="inline-form"><input id="skillInput" placeholder="Add skill"><button onclick="addSkill()" type="button">Add</button></div>
+              <ul id="skillsList" class="compact-list"></ul>
+              <h3>Experience</h3>
+              <div class="form-row">
+                <input id="company" placeholder="Company">
+                <input id="role" placeholder="Role">
+                <input id="years" placeholder="Years">
+              </div>
+              <button class="btn-soft" onclick="addExperience()" type="button">Add Experience</button>
+              <ul id="experienceList" class="compact-list"></ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="jobs" class="section">
+          <div class="panel-heading"><h2>Jobs</h2></div>
+          <div id="jobsList" class="data-list"><div class="empty-state">Loading jobs...</div></div>
+        </section>
+
+        <section id="applications" class="section">
+          <div class="panel-heading"><h2>Applications</h2></div>
+          <div id="applicationsList" class="data-list"><div class="empty-state">Loading applications...</div></div>
+        </section>
+
+        <section id="saved" class="section">
+          <div class="panel-heading"><h2>Saved Jobs</h2></div>
+          <div id="savedJobsList" class="data-list"><div class="empty-state">No saved jobs yet.</div></div>
+        </section>
+
+        <section id="discover" class="section">
+          <div class="panel-heading"><h2>Discover</h2></div>
+          <div id="discoverList" class="data-list"><div class="empty-state">Loading...</div></div>
+        </section>
+
+        <section id="gigs" class="section">
+          <div class="panel-heading"><h2>On-demand Gigs</h2></div>
+          <div id="gigsList" class="data-list"><div class="empty-state">Loading gigs...</div></div>
+        </section>
+
+        <section id="messages" class="section">
+          <div class="panel-heading"><h2>Messages</h2></div>
+          <div id="messagesList" class="data-list"><div class="empty-state">No messages yet.</div></div>
+        </section>
+
+        <section id="interviews" class="section">
+          <div class="panel-heading"><h2>Interviews</h2></div>
+          <div id="interviewList" class="data-list"><div class="empty-state">No interviews scheduled.</div></div>
+          <div id="interviewsList" hidden></div>
+        </section>
+
+        <section id="pro" class="section">
+          <div class="pro-card">
+            <div class="pro-badge"><span class="material-symbols-outlined">workspace_premium</span> WorkYaar Pro</div>
+            <h2>Stand out before the shortlist is made.</h2>
+            <p>Unlock priority applications, premium profile signals, recruiter visibility boosts, and curated interview prep for high-value roles.</p>
+            <div class="pro-feature-grid">
+              <div><span class="material-symbols-outlined">bolt</span><strong>Priority Apply</strong><small>Move applications to the top queue.</small></div>
+              <div><span class="material-symbols-outlined">visibility</span><strong>Profile Boost</strong><small>Increase recruiter discovery signals.</small></div>
+              <div><span class="material-symbols-outlined">school</span><strong>Interview Prep</strong><small>Practice with role-specific prompts.</small></div>
+            </div>
+            <button type="button">Upgrade Soon</button>
+          </div>
+        </section>
+      </div>
+
+      <footer class="dashboard-footer">
+        <div>
+          <a class="footer-logo" href="/">
+            <span class="dash-brand-mark">W</span>
+            <span>WorkYaar<span>.</span></span>
+          </a>
+          <p>&copy; 2026 WorkYaar. Elite talent, playfully curated. Helping the world's best creators find their next chapter.</p>
+        </div>
+        <nav>
+          <a href="/jobs.html">Find Jobs</a>
+          <a href="/">Resources</a>
+          <a href="/login.html">Career Support</a>
+          <a href="/">About Us</a>
+          <a href="/">Privacy Policy</a>
+        </nav>
+      </footer>
+    </main>
+  </div>
+
+  <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+    <button class="menu-item active" data-section="dashboard" type="button"><span class="material-symbols-outlined">dashboard</span><small>Home</small></button>
+    <button class="menu-item" data-section="applications" type="button"><span class="material-symbols-outlined">send</span><small>Apps</small></button>
+    <button class="menu-item" data-section="saved" type="button"><span class="material-symbols-outlined">bookmark</span><small>Saved</small></button>
+    <button class="menu-item" data-section="profile" type="button"><span class="material-symbols-outlined">person</span><small>Profile</small></button>
+  </nav>
+
+  <script src="/js/jobseeker-dashboard.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/skills.js"></script>
+  <script src="/js/experience.js"></script>
+</body>
+</html>

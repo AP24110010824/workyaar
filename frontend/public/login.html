@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In | WorkYaar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="/css/global.css" rel="stylesheet">
+<link href="/css/pages/login.css" rel="stylesheet">
+</head>
+<body class="auth-page">
+
+<div class="auth-card">
+  <div class="auth-logo">
+    <a href="/" style="text-decoration:none;"><div class="brand">WorkYaar<span style="color:var(--primary);">.</span></div></a>
+    <div class="sub">Career Portal</div>
+  </div>
+  
+  <h2 class="auth-title text-center">Welcome Back</h2>
+  <div class="auth-sub text-center">Please sign in to your account.</div>
+
+  <!-- ROLE TOGGLE -->
+  <div class="toggle-wrapper">
+    <div class="slider" id="slider"></div>
+    <button class="toggle-btn role-toggle active" data-role="jobseeker" data-idx="0">Job Seeker</button>
+    <button class="toggle-btn role-toggle" data-role="employer" data-idx="1">Employer</button>
+    
+  </div>
+
+  <input type="hidden" id="role" value="jobseeker">
+
+  <div class="form-group">
+    <label class="form-label">Email Address</label>
+    <input type="email" class="form-input" id="email" placeholder="you@example.com">
+  </div>
+  <div class="form-group" style="margin-bottom:24px;">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-input" id="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+  </div>
+
+  <button class="btn btn-primary btn-full btn-lg" id="loginBtn">Sign In</button>
+
+  <div class="links">
+    <a href="/forgot-password.html">Forgot Password?</a>
+  </div>
+
+  <div class="signup">
+    Don't have an account? <a href="/register.html">Sign up</a>
+  </div>
+</div>
+
+<script>
+/* ================= ROLE SWITCH ================= */
+function selectRole(role, index){
+  document.getElementById("role").value = role;
+  document.querySelectorAll(".toggle-btn").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".toggle-btn")[index].classList.add("active");
+  document.getElementById("slider").style.left = (index * 50) + "%";
+  localStorage.setItem("selectedRole", role);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  /* LOAD SAVED ROLE */
+  const r = localStorage.getItem("selectedRole");
+  if(r === "employer") selectRole("employer",1);
+  
+
+  /* BIND EVENTS */
+  document.querySelectorAll(".role-toggle").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const role = e.target.getAttribute("data-role");
+      const idx = parseInt(e.target.getAttribute("data-idx"));
+      selectRole(role, idx);
+    });
+  });
+
+  document.getElementById("loginBtn").addEventListener("click", login);
+});
+
+/* ================= LOGIN ================= */
+async function login(){
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const selectedRole = document.getElementById("role").value;
+
+  if(!email || !password){
+    alert("Enter email & password");
+    return;
+  }
+
+  const btn = document.querySelector(".btn-primary");
+  btn.disabled = true;
+  btn.innerHTML = "<div class='spinner'></div> Signing in...";
+
+  try{
+    const res = await fetch("/api/auth/login",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if(!res.ok || !data.success){
+      alert(data.message || "Login failed");
+      btn.disabled = false;
+      btn.innerText = "Sign In";
+      return;
+    }
+
+    const roleId = Number(data.role_id);
+    const roleMap = { jobseeker: 3, employer: 2, admin: 1 };
+
+    if(selectedRole !== "admin" && roleMap[selectedRole] !== roleId){
+      alert("You selected wrong role for this account");
+      btn.disabled = false;
+      btn.innerText = "Sign In";
+      return;
+    }
+
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("role_id", roleId);
+
+    if(roleId === 1) window.location.href = "/admin-dashboard.html";
+    else if(roleId === 2) window.location.href = "/employer-dashboard.html";
+    else if(roleId === 3) window.location.href = "/jobseeker-dashboard.html";
+    else alert("Invalid role");
+
+  }catch(err){
+    console.error(err);
+    alert("Server error");
+    btn.disabled = false;
+    btn.innerText = "Sign In";
+  }
+}
+</script>
+</body>
+</html>

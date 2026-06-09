@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employer Dashboard - WorkYaar</title>
+  <link href="/css/global.css" rel="stylesheet">
+  <link href="/css/pages/employer-dashboard.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="employer-page">
+  <button class="mobile-menu-button" id="employerMenuBtn" type="button" aria-label="Open menu">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+  <div class="employer-shell">
+    <aside class="employer-sidebar" id="employerSidebar">
+      <a class="employer-logo" href="/">
+        <span class="brand-icon">W</span>
+        <span>
+          <strong>WorkYaar</strong>
+          <small>Premium Talent</small>
+        </span>
+      </a>
+
+      <nav class="employer-nav" aria-label="Employer navigation">
+        <button class="menu-item active" data-section="dashboard" type="button"><i class="fa-solid fa-table-cells-large"></i> Overview</button>
+        <button class="menu-item" data-section="myjobs" type="button"><i class="fa-solid fa-briefcase"></i> Job Postings</button>
+        <button class="menu-item" data-section="applications" type="button"><i class="fa-solid fa-users"></i> Candidates</button>
+        <button class="menu-item" data-section="discover" type="button"><i class="fa-regular fa-compass"></i> Discover</button>
+        <button class="menu-item" data-section="profile" type="button"><i class="fa-solid fa-building"></i> Company Profile</button>
+        <button class="menu-item" data-section="postjob" type="button"><i class="fa-solid fa-plus"></i> Post a Job</button>
+      </nav>
+
+      <button class="sidebar-post" data-section-jump="postjob" type="button">
+        <i class="fa-solid fa-bolt"></i>
+        Post a New Job
+      </button>
+
+      <div class="sidebar-profile">
+        <div class="avatar" id="companyAvatar">W</div>
+        <div>
+          <strong id="sidebarCompanyName">WorkYaar Partner</strong>
+          <span>Talent Lead</span>
+        </div>
+      </div>
+
+      <button class="logout-link" id="logoutBtn" type="button">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+      </button>
+    </aside>
+
+    <main class="employer-main">
+      <header class="employer-topbar">
+        <div>
+          <span id="pageTitle">Overview</span>
+          <h1>Welcome back, <strong id="companyWelcome">InnovateTech</strong></h1>
+          <p>Here is what is happening with your hiring pipeline today.</p>
+        </div>
+
+        <div class="topbar-actions">
+          <label class="topbar-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" placeholder="Search candidates, roles...">
+          </label>
+          <button class="icon-button" type="button" aria-label="Notifications"><i class="fa-regular fa-bell"></i></button>
+          <button class="primary-action" data-section-jump="postjob" type="button"><i class="fa-solid fa-plus"></i> Post Job</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="section active">
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-icon blue"><i class="fa-solid fa-user-plus"></i></span>
+            <small>Total Hires</small>
+            <strong>24</strong>
+            <em>+12% this month</em>
+          </article>
+          <article class="stat-card">
+            <span class="stat-icon violet"><i class="fa-solid fa-briefcase"></i></span>
+            <small>Active Postings</small>
+            <strong id="jobCount">0</strong>
+            <em>Live roles</em>
+          </article>
+          <article class="stat-card">
+            <span class="stat-icon slate"><i class="fa-solid fa-file-lines"></i></span>
+            <small>Applications</small>
+            <strong id="appCount">0</strong>
+            <em>New pipeline</em>
+          </article>
+          <article class="stat-card">
+            <span class="stat-icon rose"><i class="fa-solid fa-calendar-check"></i></span>
+            <small>Interviews</small>
+            <strong id="intCount">0</strong>
+            <em><span id="shortCount">0</span> shortlisted</em>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel panel-wide">
+            <div class="panel-title">
+              <div>
+                <span>Hiring flow</span>
+                <h2>Active Job Postings</h2>
+              </div>
+              <button class="text-button" data-section-jump="myjobs" type="button">View all</button>
+            </div>
+            <div class="posting-list" id="recentJobsList">Loading active postings...</div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <div>
+                <span>Today</span>
+                <h2>Upcoming Interviews</h2>
+              </div>
+            </div>
+            <div class="timeline">
+              <article><strong>10:30 AM</strong><span>Senior Frontend Technical Round</span><small>Marcus Aurelius</small></article>
+              <article><strong>2:00 PM</strong><span>Designer Portfolio Review</span><small>Saba Khan</small></article>
+              <article><strong>Tomorrow</strong><span>HR Cultural Fit</span><small>Jordan Smith</small></article>
+            </div>
+          </section>
+
+          <section class="panel panel-wide">
+            <div class="panel-title">
+              <div>
+                <span>Top 1% talent</span>
+                <h2>Talent Matches</h2>
+              </div>
+              <button class="text-button" data-section-jump="applications" type="button">Explore pool</button>
+            </div>
+            <div class="talent-grid">
+              <article class="talent-card">
+                <div class="talent-avatar">DM</div>
+                <strong>David Miller</strong>
+                <span>Staff Engineer - Ex-Google</span>
+                <div><small>React</small><small>Go</small><small>Cloud</small></div>
+                <button type="button">Invite to Interview</button>
+              </article>
+              <article class="talent-card">
+                <div class="talent-avatar violet">ER</div>
+                <strong>Elena Rodriguez</strong>
+                <span>Senior UX Lead - Ex-Airbnb</span>
+                <div><small>Strategy</small><small>Figma</small><small>Motion</small></div>
+                <button type="button">Invite to Interview</button>
+              </article>
+              <article class="talent-card">
+                <div class="talent-avatar slate">JW</div>
+                <strong>James Wilson</strong>
+                <span>ML Ops Expert - Ex-Tesla AI</span>
+                <div><small>Python</small><small>MLOps</small><small>K8s</small></div>
+                <button type="button">Invite to Interview</button>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <div>
+                <span>New</span>
+                <h2>Recent Applications</h2>
+              </div>
+            </div>
+            <div class="compact-list" id="recentApplicationsList">Loading recent applications...</div>
+          </section>
+        </div>
+      </section>
+
+      <section id="myjobs" class="section">
+        <div class="section-heading">
+          <div>
+            <span>Manage roles</span>
+            <h2>Job Postings</h2>
+          </div>
+          <button class="primary-action" data-section-jump="postjob" type="button"><i class="fa-solid fa-plus"></i> New Job</button>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr><th>Role</th><th>Category</th><th>Location</th><th>Salary</th><th></th></tr>
+            </thead>
+            <tbody id="jobsTable">
+              <tr><td colspan="5">Loading posted jobs...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="applications" class="section">
+        <div class="section-heading">
+          <div>
+            <span>Pipeline</span>
+            <h2>Candidates</h2>
+          </div>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr><th>Candidate</th><th>Role</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody id="applicationsTable">
+              <tr><td colspan="4">Loading applications...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="discover" class="section">
+        <div class="discover-hero">
+          <div>
+            <span>Discover Top Talent & Roles</span>
+            <h2>Connect with innovative companies and elite creators.</h2>
+            <p>Curated, high-signal, and purely professional. Browse premium roles or invite top talent into your hiring pipeline.</p>
+            <div class="discover-actions">
+              <button class="primary-action" data-section-jump="applications" type="button">Hire Top Talent <i class="fa-solid fa-arrow-right"></i></button>
+              <a class="secondary-action" href="/browse-jobs.html">Browse Roles</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="trends-row">
+          <div><i class="fa-solid fa-arrow-trend-up"></i> Trending Now</div>
+          <a href="/browse-jobs.html">View All Trends</a>
+        </div>
+
+        <div class="trend-chips">
+          <span>#GenerativeAI <small>+240%</small></span>
+          <span>#FigmaPrototyping <small>+180%</small></span>
+          <span>#RustLang <small>+150%</small></span>
+          <span>#ProductStrategy <small>+120%</small></span>
+          <span>#WebGL <small>+90%</small></span>
+        </div>
+
+        <div class="discover-filters">
+          <button type="button"><i class="fa-solid fa-shapes"></i> Category: Design <i class="fa-solid fa-chevron-down"></i></button>
+          <button type="button"><i class="fa-regular fa-clock"></i> Job Type: Remote <i class="fa-solid fa-chevron-down"></i></button>
+          <button type="button"><i class="fa-regular fa-pen-to-square"></i> Level: Senior <i class="fa-solid fa-chevron-down"></i></button>
+          <a href="/browse-jobs.html"><i class="fa-solid fa-sliders"></i> Advanced Filters</a>
+        </div>
+
+        <div class="discover-layout">
+          <div class="discover-main">
+            <div class="section-heading compact">
+              <div>
+                <span>Top 1% Featured Talent</span>
+                <h2>Available Creators</h2>
+              </div>
+            </div>
+            <div class="featured-talent">
+              <article class="talent-card large">
+                <div class="talent-avatar photo">SJ</div>
+                <strong>Sarah Jenkins</strong>
+                <span>Principal Product Designer @ DesignCo</span>
+                <div><small>Systems Architecture</small><small>WebGL</small><small>Team Leadership</small></div>
+                <button type="button"><i class="fa-regular fa-calendar"></i> Invite to Interview</button>
+              </article>
+              <article class="talent-card large">
+                <div class="talent-avatar photo violet">MT</div>
+                <strong>Marcus Thorne</strong>
+                <span>Senior Software Engineer @ FinTech</span>
+                <div><small>Rust</small><small>Distributed Systems</small><small>AWS</small></div>
+                <button type="button"><i class="fa-regular fa-calendar"></i> Invite to Interview</button>
+              </article>
+            </div>
+
+            <div class="section-heading compact gigs-heading">
+              <div>
+                <span>On-demand Gigs</span>
+                <p>Quick high-impact projects for world-class creators.</p>
+              </div>
+              <a class="text-button" href="/browse-jobs.html">Explore All Gigs <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <div class="gig-list">
+              <article>
+                <span><i class="fa-solid fa-paintbrush"></i></span>
+                <div><strong>Brand Identity Refresh</strong><small>Stealth AI Startup - 2-4 weeks - Remote</small></div>
+                <b>$5,000 - $8,000</b>
+              </article>
+              <article>
+                <span><i class="fa-solid fa-code"></i></span>
+                <div><strong>Three.js Interactive Landing Page</strong><small>Crypto Protocol - 1 week - Remote</small></div>
+                <b>$3,500 fixed</b>
+              </article>
+            </div>
+          </div>
+
+          <aside class="premium-roles">
+            <h3>Premium Roles</h3>
+            <article><div class="role-icon">L</div><strong>Senior UX Engineer</strong><span>Linear - Remote</span><b>$180k - $240k</b><a href="/browse-jobs.html">Quick Apply</a></article>
+            <article><div class="role-icon violet">S</div><strong>Staff Product Designer</strong><span>Stripe - San Francisco / Remote</span><b>$220k - $300k</b><a href="/browse-jobs.html">Quick Apply</a></article>
+            <article><div class="role-icon">A</div><strong>Lead Frontend Developer</strong><span>Vercel - Remote</span><b>$190k - $260k</b><a href="/browse-jobs.html">Quick Apply</a></article>
+            <div class="hire-card">
+              <i class="fa-solid fa-rocket"></i>
+              <strong>Hiring for your team?</strong>
+              <p>Get your role in front of the top 1% creators and engineers today.</p>
+              <button class="primary-action" data-section-jump="postjob" type="button">Post a Job Listing</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="profile" class="section">
+        <div class="section-heading">
+          <div>
+            <span id="badgeBox">Verified Company</span>
+            <h2>Company Profile</h2>
+          </div>
+          <div class="button-row">
+            <button class="secondary-action" id="editBtn" type="button"><i class="fa-solid fa-pen"></i> Edit</button>
+            <button class="primary-action" id="saveBtn" type="button"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+          </div>
+        </div>
+
+        <div class="form-panel">
+          <label>Company Name<input id="company_name" placeholder="Company name" disabled></label>
+          <label>Employer Type
+            <select id="employer_type" disabled>
+              <option value="company">Company</option>
+              <option value="agency">Consultancy</option>
+              <option value="recruiter">Recruiter</option>
+            </select>
+          </label>
+          <label>Industry Type
+            <select id="industry_type" disabled>
+              <option value="">Select type</option>
+              <option value="tech">Technology</option>
+              <option value="creative">Creative</option>
+              <option value="business">Business</option>
+            </select>
+          </label>
+          <label>Industry
+            <select id="industry" disabled>
+              <option value="">Select industry</option>
+            </select>
+          </label>
+          <label>Company Size
+            <select id="company_size" disabled>
+              <option value="1-10">1-10 employees</option>
+              <option value="10-50">10-50 employees</option>
+              <option value="50-200">50-200 employees</option>
+              <option value="200+">200+ employees</option>
+            </select>
+          </label>
+          <label>Founded Year<input id="founded_year" placeholder="2018" disabled></label>
+          <label>Hiring Status
+            <select id="hiring_status" disabled>
+              <option value="active">Active hiring</option>
+              <option value="closed">Not hiring</option>
+            </select>
+          </label>
+          <label>GST Number<input id="gst" placeholder="GST Number" disabled></label>
+          <label>PWD Hiring
+            <select id="pwd_hiring" disabled>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <label>NGO Organization
+            <select id="ngo_type" disabled>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <label class="full">About Company<textarea id="about" placeholder="Tell candidates what makes your company special." disabled></textarea></label>
+          <label class="full">Office Address<textarea id="office_address" placeholder="Full address" disabled></textarea></label>
+          <label>Country<input id="country" placeholder="Country" disabled></label>
+          <label>State<input id="state" placeholder="State" disabled></label>
+          <label>City<input id="city" placeholder="City" disabled></label>
+          <label>Phone<input id="phone" placeholder="Phone" disabled></label>
+          <label>Email<input id="email" placeholder="Email" disabled></label>
+          <label>Website<input id="website" placeholder="https://" disabled></label>
+          <label>LinkedIn<input id="linkedin" placeholder="LinkedIn URL" disabled></label>
+          <label class="full">Company Logo<input id="logo" type="file" disabled></label>
+        </div>
+      </section>
+
+      <section id="postjob" class="section">
+        <div class="section-heading">
+          <div>
+            <span>Create role</span>
+            <h2>Post New Job</h2>
+          </div>
+        </div>
+
+        <div class="form-panel post-form">
+          <label>Job Title<input id="title" placeholder="Senior Frontend Engineer"></label>
+          <label>Category
+            <select id="category_id">
+              <option value="">Select category</option>
+            </select>
+          </label>
+          <label>Location<input id="location_job" placeholder="Remote, Hybrid, or City"></label>
+          <label>Experience<input id="experience" placeholder="3-5 years"></label>
+          <label>Job Type
+            <select id="job_type">
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Freelance">Freelance</option>
+              <option value="Contract">Contract</option>
+              <option value="Remote">Remote</option>
+            </select>
+          </label>
+          <label>Salary Min<input id="salary_min" type="number" placeholder="50000"></label>
+          <label>Salary Max<input id="salary_max" type="number" placeholder="90000"></label>
+          <label class="full">Job Description<textarea id="description" placeholder="Responsibilities, requirements, benefits..."></textarea></label>
+          <button class="primary-action full" onclick="createJob()" type="button"><i class="fa-solid fa-paper-plane"></i> Post Job Now</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/employer-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Verify Email - WorkYaar</title>
+
+<link href="/css/global.css" rel="stylesheet">
+<link href="/css/pages/verify-email.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="card">
+
+  <h1>Email Verification</h1>
+
+  <div id="message">
+    Verifying your email...
+  </div>
+
+  <a href="/login.html">
+    Go To Login
+  </a>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const token = params.get("token");
+
+const message = document.getElementById("message");
+
+if(!token){
+  message.innerHTML = "Invalid verification link";
+  message.className = "error";
+}
+else{
+
+  fetch(`/api/auth/verify-email/${token}`)
+  .then(res => res.json())
+  .then(data => {
+
+    if(data.success){
+
+      message.innerHTML =
+        "Email verified successfully";
+
+      message.className = "success";
+
+    }else{
+
+      message.innerHTML =
+        data.message || "Verification failed";
+
+      message.className = "error";
+    }
+
+  })
+  .catch(() => {
+
+    message.innerHTML = "Server error";
+    message.className = "error";
+
+  });
+
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+﻿/* Page styles for login.html */
+
+/* ROLE TOGGLE */
+.toggle-wrapper{
+  position:relative;
+  display:flex;
+  background:var(--light-2);
+  border-radius:10px;
+  padding:4px;
+  margin-bottom:24px;
+}
+.slider{
+  position:absolute;
+  width:50%;
+  height:calc(100% - 8px);
+  background:var(--card);
+  box-shadow:var(--shadow-sm);
+  border-radius:8px;
+  transition:0.3s;
+  top:4px;
+  left:4px;
+  z-index:1;
+}
+.toggle-btn{
+  flex:1;
+  padding:12px 0;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  z-index:2;
+  font-weight:600;
+  font-size:13px;
+  color:var(--muted);
+  transition:color var(--transition);
+}
+.toggle-btn.active{
+  color:var(--dark);
+}
+.links{
+  margin-top:20px;
+  font-size:13px;
+  text-align:center;
+}
+.links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-weight:500;
+  transition:color var(--transition);
+}
+.links a:hover{
+  color:var(--primary);
+  text-decoration:underline;
+}
+.signup{
+  margin-top:24px;
+  font-size:14px;
+  color:var(--muted);
+  text-align:center;
+}
+.signup a{
+  color:var(--primary);
+  font-weight:600;
+  text-decoration:none;
+}
+

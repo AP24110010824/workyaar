@@ -1,0 +1,39 @@
+﻿/* Page styles for register.html */
+
+/* ROLE TOGGLE */
+.role-selection{
+  display:flex;
+  background:var(--light-2);
+  border-radius:10px;
+  padding:4px;
+  margin-bottom:24px;
+}
+.role-btn{
+  flex:1;
+  padding:12px 0;
+  border-radius:8px;
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+  font-weight:600;
+  font-size:13px;
+  transition:all var(--transition);
+}
+.role-btn.active{
+  background:var(--card);
+  color:var(--dark);
+  box-shadow:var(--shadow-sm);
+}
+.signup{
+  margin-top:24px;
+  font-size:14px;
+  color:var(--muted);
+  text-align:center;
+}
+.signup a{
+  color:var(--primary);
+  font-weight:600;
+  text-decoration:none;
+}
+

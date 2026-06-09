@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkYaar Admin Dashboard</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link href="/css/theme.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+/* =========================================
+   OVERRIDES FOR ADMIN DASHBOARD
+========================================= */
+
+body{
+  display:flex;
+  height:100vh;
+  background:var(--light-2);
+  overflow:hidden;
+  font-family:'Inter',sans-serif;
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar{
+  width:280px;
+  background:linear-gradient(180deg, var(--dark) 0%, #1e1b4b 100%);
+  color:#fff;
+  padding:24px 20px;
+  overflow-y:auto;
+  border-right:1px solid rgba(255,255,255,0.05);
+}
+
+.logo{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.logo img{
+  width:160px;
+  background:rgba(255,255,255,0.05);
+  padding:12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* MENU */
+.menu{
+  list-style:none;
+}
+
+.menu li{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:14px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  margin-bottom:8px;
+  transition:all var(--transition);
+  font-size:15px;
+  font-weight:500;
+  color:rgba(255,255,255,0.7);
+}
+
+.menu li:hover{
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  transform:translateX(4px);
+}
+
+.menu li.active{
+  background:var(--primary);
+  color:#fff;
+  box-shadow:0 4px 12px rgba(249,115,22,0.3);
+}
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.topbar{
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(16px);
+  padding:20px 32px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--border);
+}
+
+.topbar h2{
+  font-size:24px;
+  color:var(--dark);
+  font-weight:800;
+}
+
+.topbar button {
+  background:var(--card);
+  border:1.5px solid var(--border);
+  color:var(--dark);
+  padding:10px 18px;
+  font-weight:600;
+  font-size:14px;
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  transition:all var(--transition);
+}
+
+.topbar button:hover {
+  border-color:var(--primary);
+  color:var(--primary);
+}
+
+/* CONTENT */
+.content{
+  flex:1;
+  overflow-y:auto;
+  padding:32px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:24px;
+}
+
+.stat{
+  background:var(--card);
+  padding:24px;
+  border-radius:16px;
+  box-shadow:var(--shadow-sm);
+  border:1px solid var(--border);
+  transition:all var(--transition);
+  position:relative;
+  overflow:hidden;
+}
+
+.stat::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--primary); transform: scaleY(0); transform-origin: bottom; transition: transform var(--transition);
+}
+
+.stat:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+}
+
+.stat:hover::before {
+  transform: scaleY(1);
+}
+
+.stat h4{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:12px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+
+.stat h2{
+  font-size:36px;
+  color:var(--dark);
+  font-weight:900;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  padding:32px;
+  border-radius:16px;
+  margin-top:24px;
+  box-shadow:var(--shadow-sm);
+  border:1px solid var(--border);
+}
+
+/* TABLE */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:16px;
+}
+
+table thead{
+  background:var(--light-2);
+  color:var(--muted);
+}
+
+table th {
+  font-weight:600;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  padding:16px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+}
+
+table td{
+  padding:16px;
+  text-align:left;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+  color:var(--dark);
+  font-weight:500;
+}
+
+table tbody tr{
+  transition:all var(--transition);
+}
+
+table tbody tr:hover{
+  background:var(--light);
+}
+
+/* BUTTON */
+button{
+  padding:8px 14px;
+  border:none;
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  font-weight:600;
+  font-size:13px;
+  transition:all var(--transition);
+  margin-right:4px;
+}
+
+.green{
+  background:#d1fae5;
+  color:#065f46;
+}
+
+.green:hover{
+  background:#a7f3d0;
+}
+
+.red{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.red:hover{
+  background:#fecaca;
+}
+
+.blue{
+  background:var(--primary);
+  color:#fff;
+}
+
+.blue:hover{
+  background:var(--primary-dark);
+}
+
+/* Default button for actions */
+td button:not(.green):not(.red):not(.blue) {
+  background:var(--light-2);
+  border:1px solid var(--border);
+  color:var(--dark);
+}
+
+td button:not(.green):not(.red):not(.blue):hover {
+  background:var(--card);
+  border-color:var(--primary);
+  color:var(--primary);
+}
+
+/* FILTER */
+.filters{
+  display:flex;
+  gap:16px;
+  margin-bottom:24px;
+}
+
+.filters input, .filters select{
+  flex:1;
+  padding:14px;
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  font-size:14px;
+  background:var(--light-2);
+  transition:all var(--transition);
+  outline:none;
+  font-family:inherit;
+}
+
+.filters input:focus, .filters select:focus {
+  border-color:var(--primary);
+  background:var(--card);
+}
+
+.filters button {
+  padding:14px 24px;
+  font-size:14px;
+}
+
+/* SECTION */
+.section{
+  display:none;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section.active{
+  display:block;
+}
+
+/* LOADER */
+#loader{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:rgba(15,23,42,0.8);
+  backdrop-filter:blur(4px);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:700;
+  z-index:9999;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader">Loading...</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<div class="logo">
+<img src="/images/workyaar-logo.png">
+</div>
+
+<ul class="menu">
+<li data-page="dashboard" class="active">Dashboard</li>
+<li data-page="users">Users</li>
+<li data-page="jobs">Jobs</li>
+<li onclick="logout()">Logout</li>
+</ul>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="topbar">
+<h2 id="title">Admin Dashboard</h2>
+<button onclick="loadDashboard()">🔄 Refresh</button>
+</div>
+
+<div class="content">
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section active">
+
+<div class="grid">
+<div class="stat"><h4>Users</h4><h2 id="usersCount">0</h2></div>
+<div class="stat"><h4>Jobs</h4><h2 id="jobsCount">0</h2></div>
+<div class="stat"><h4>Applications</h4><h2 id="apps">0</h2></div>
+<div class="stat"><h4>Companies</h4><h2 id="companies">0</h2></div>
+</div>
+
+<div class="card">
+<canvas id="chart"></canvas>
+</div>
+
+</div>
+
+<!-- USERS -->
+<div id="users" class="section">
+<div class="card">
+
+<div class="filters">
+<input id="userSearch" placeholder="Search user">
+<select id="roleFilter">
+<option value="">All Roles</option>
+<option value="1">Admin</option>
+<option value="2">Employer</option>
+<option value="3">Jobseeker</option>
+</select>
+<button class="blue" onclick="loadUsers()">Filter</button>
+</div>
+
+<table id="usersTable">
+<thead>
+<tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Action</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+
+</div>
+</div>
+
+<!-- JOBS -->
+<div id="jobs" class="section">
+<div class="card">
+
+<div class="filters">
+<input id="jobSearch" placeholder="Search job">
+<select id="jobStatus">
+<option value="">All</option>
+<option value="1">Approved</option>
+<option value="0">Pending</option>
+</select>
+<button class="blue" onclick="loadJobs()">Filter</button>
+</div>
+
+<table id="jobsTable">
+<thead>
+<tr><th>Title</th><th>Employer</th><th>Status</th><th>Action</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+const API="/api/admin";
+const token=localStorage.getItem("token");
+
+/* LOADER */
+function showLoader(){ loader.style.display="block"; }
+function hideLoader(){ loader.style.display="none"; }
+
+/* COMMON API */
+async function api(url, options={}){
+const res=await fetch(API+url,{
+...options,
+headers:{
+"Content-Type":"application/json",
+Authorization:`Bearer ${token}`
+}
+});
+
+if(res.status===401){
+alert("Session expired");
+localStorage.clear();
+location.href="/login.html";
+return;
+}
+
+return res.json();
+}
+
+/* NAV */
+document.querySelectorAll(".menu li[data-page]").forEach(i=>{
+i.onclick=()=>{
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(i.dataset.page).classList.add("active");
+title.innerText=i.innerText;
+
+if(i.dataset.page==="users") loadUsers();
+if(i.dataset.page==="jobs") loadJobs();
+};
+});
+
+/* DASHBOARD */
+let chart;
+
+async function loadDashboard(){
+showLoader();
+
+const d=await api("/dashboard");
+if(!d) return;
+
+usersCount.innerText=d.stats.users;
+jobsCount.innerText=d.stats.jobs;
+apps.innerText=d.stats.applications;
+companies.innerText=d.stats.companies;
+
+if(chart) chart.destroy();
+
+chart=new Chart(document.getElementById("chart"),{
+type:"bar",
+data:{
+labels:["Users","Jobs","Applications","Companies"],
+datasets:[{label:"Stats",data:[
+d.stats.users,d.stats.jobs,d.stats.applications,d.stats.companies
+]}]
+}
+});
+
+hideLoader();
+}
+
+/* USERS */
+async function loadUsers(){
+showLoader();
+
+const d=await api("/users");
+if(!d) return;
+
+let search=userSearch.value.toLowerCase();
+let role=roleFilter.value;
+
+let html="";
+
+if(!d.users || d.users.length===0){
+usersTable.querySelector("tbody").innerHTML =
+`<tr><td colspan="5">No users found</td></tr>`;
+hideLoader();
+return;
+}
+
+d.users.forEach(u=>{
+if(search && !u.name.toLowerCase().includes(search)) return;
+if(role && u.role_id!=role) return;
+
+html+=`<tr>
+<td>${u.name}</td>
+<td>${u.email}</td>
+<td>${u.role_name}</td>
+<td>${u.is_active?"Active":"Blocked"}</td>
+<td>
+<button onclick="blockUser(${u.id},0)">Block</button>
+<button onclick="blockUser(${u.id},1)">Unblock</button>
+<button class="red" onclick="deleteUser(${u.id})">Delete</button>
+</td>
+</tr>`;
+});
+
+usersTable.querySelector("tbody").innerHTML=html;
+
+hideLoader();
+}
+
+async function blockUser(id,status){
+await api(`/users/${id}/status`,{
+method:"PUT",
+body:JSON.stringify({status})
+});
+loadUsers();
+}
+
+async function deleteUser(id){
+if(!confirm("Delete user?")) return;
+
+await api(`/users/${id}`,{method:"DELETE"});
+loadUsers();
+}
+
+/* JOBS */
+async function loadJobs(){
+showLoader();
+
+const d=await api("/jobs");
+if(!d) return;
+
+let search=jobSearch.value.toLowerCase();
+let status=jobStatus.value;
+
+let html="";
+
+if(!d.jobs || d.jobs.length===0){
+jobsTable.querySelector("tbody").innerHTML =
+`<tr><td colspan="4">No jobs found</td></tr>`;
+hideLoader();
+return;
+}
+
+d.jobs.forEach(j=>{
+if(search && !j.title.toLowerCase().includes(search)) return;
+if(status && j.is_approved!=status) return;
+
+html+=`<tr>
+<td>${j.title}</td>
+<td>${j.company_name || "-"}</td>
+<td>${j.is_approved?"Approved":"Pending"}</td>
+<td>
+<button class="green" onclick="approveJob(${j.id},1)">Approve</button>
+<button class="red" onclick="approveJob(${j.id},0)">Reject</button>
+</td>
+</tr>`;
+});
+
+jobsTable.querySelector("tbody").innerHTML=html;
+
+hideLoader();
+}
+
+async function approveJob(id,status){
+await api(`/jobs/${id}/status`,{
+method:"PUT",
+body:JSON.stringify({status})
+});
+loadJobs();
+}
+
+/* LOGOUT */
+function logout(){
+localStorage.removeItem("token");
+location.href="/login.html";
+}
+
+/* INIT */
+loadDashboard();
+</script>
+
+</body>
+</html>

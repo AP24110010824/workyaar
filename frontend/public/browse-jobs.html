@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Jobs - WorkYaar</title>
+  <link href="/css/global.css" rel="stylesheet">
+  <link href="/css/pages/browse-jobs.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="browse-jobs-page">
+  <header class="jobs-shell-header">
+    <a class="jobs-brand" href="/" aria-label="WorkYaar home">
+      <img src="/images/workyaar-logo.png" alt="WorkYaar">
+    </a>
+
+    <nav class="jobs-nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a class="active" href="/browse-jobs.html">Find Jobs</a>
+      <a href="/jobseeker-dashboard.html">Dashboard</a>
+      <a href="/login.html">Login</a>
+    </nav>
+
+    <a class="header-cta" href="/register.html">
+      <i class="fa-solid fa-bolt"></i>
+      Get Started
+    </a>
+  </header>
+
+  <main>
+    <section class="jobs-hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> Curated openings for elite talent</span>
+        <h1>Find your next career-defining role.</h1>
+        <p>Search remote, hybrid, and high-impact teams with a calm interface built for fast decisions.</p>
+      </div>
+
+      <form class="hero-search" id="jobSearchForm">
+        <div class="search-field search-field-wide">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="keyword" name="keyword" type="search" placeholder="Role, skill, or company">
+        </div>
+        <div class="search-field">
+          <i class="fa-solid fa-location-dot"></i>
+          <input id="location" name="location" type="search" placeholder="Location">
+        </div>
+        <button class="search-submit" type="submit">
+          Search Jobs
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+    </section>
+
+    <section class="jobs-workspace">
+      <aside class="filters-panel" id="filtersPanel">
+        <div class="panel-heading">
+          <div>
+            <span>Filters</span>
+            <strong>Refine roles</strong>
+          </div>
+          <button class="text-action" id="clearFilters" type="button">Clear</button>
+        </div>
+
+        <label class="filter-group">
+          <span>Work Type</span>
+          <select id="type">
+            <option value="">Any type</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Contract">Contract</option>
+            <option value="Remote">Remote</option>
+          </select>
+        </label>
+
+        <label class="filter-group">
+          <span>Remote</span>
+          <select id="remote">
+            <option value="">All roles</option>
+            <option value="remote">Remote only</option>
+          </select>
+        </label>
+
+        <label class="filter-group">
+          <span>Minimum Match</span>
+          <input id="matchRange" type="range" min="50" max="95" value="65">
+          <small><span id="matchValue">65</span>% or better</small>
+        </label>
+
+        <div class="filter-chips" aria-label="Suggested searches">
+          <button type="button" data-keyword="Product Designer">Product Design</button>
+          <button type="button" data-keyword="React">React</button>
+          <button type="button" data-keyword="Backend">Backend</button>
+          <button type="button" data-keyword="AI">AI</button>
+        </div>
+      </aside>
+
+      <section class="results-panel">
+        <div class="results-toolbar">
+          <div>
+            <span id="activeFilterText">Top matches</span>
+            <h2>Available Jobs</h2>
+          </div>
+          <div class="toolbar-actions">
+            <button class="mobile-filter-toggle" id="mobileFilterToggle" type="button">
+              <i class="fa-solid fa-sliders"></i>
+              Filters
+            </button>
+            <span class="count-pill" id="jobCountLabel">Loading...</span>
+          </div>
+        </div>
+
+        <div class="job-grid" id="jobsContainer" aria-live="polite"></div>
+        <div class="pagination" id="pagination"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="/job-search.js"></script>
+  <script src="/js/jobs.js"></script>
+</body>
+</html>

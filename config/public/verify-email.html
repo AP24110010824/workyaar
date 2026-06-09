@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Verify Email - WorkYaar</title>
+
+<link href="/css/theme.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Inter', Arial,sans-serif;
+  background:var(--light-2);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.card{
+  background:var(--card);
+  padding:48px 40px;
+  border-radius:var(--radius-lg);
+  width:100%;
+  max-width:440px;
+  text-align:center;
+  box-shadow:var(--shadow-lg);
+}
+
+h1{
+  margin-bottom:24px;
+  font-size:26px;
+  font-weight:800;
+  color:var(--dark);
+}
+
+#message{
+  font-size:16px;
+  margin-top:20px;
+  font-weight:600;
+  padding:16px;
+  border-radius:8px;
+}
+
+.success{
+  background:#d1fae5;
+  color:#047857 !important;
+}
+
+.error{
+  background:#fee2e2;
+  color:#b91c1c !important;
+}
+
+a{
+  display:inline-block;
+  margin-top:32px;
+  text-decoration:none;
+  background:var(--primary);
+  color:#fff;
+  padding:14px 24px;
+  border-radius:var(--radius-sm);
+  font-weight:700;
+  transition:all var(--transition);
+  box-shadow:0 4px 14px rgba(249,115,22,0.3);
+}
+
+a:hover{
+  background:var(--primary-dark);
+  transform:translateY(-1px);
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <h1>Email Verification</h1>
+
+  <div id="message">
+    Verifying your email...
+  </div>
+
+  <a href="/login.html">
+    Go To Login
+  </a>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const token = params.get("token");
+
+const message = document.getElementById("message");
+
+if(!token){
+  message.innerHTML = "Invalid verification link";
+  message.className = "error";
+}
+else{
+
+  fetch(`/api/auth/verify-email/${token}`)
+  .then(res => res.json())
+  .then(data => {
+
+    if(data.success){
+
+      message.innerHTML =
+        "Email verified successfully";
+
+      message.className = "success";
+
+    }else{
+
+      message.innerHTML =
+        data.message || "Verification failed";
+
+      message.className = "error";
+    }
+
+  })
+  .catch(() => {
+
+    message.innerHTML = "Server error";
+    message.className = "error";
+
+  });
+
+}
+</script>
+
+</body>
+</html>

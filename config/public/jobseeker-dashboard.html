@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkYaar – Career Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="/css/theme.css?v=3" rel="stylesheet">
+</head>
+<body>
+
+<div class="app-layout">
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-name">WorkYaar</div>
+    <div class="brand-sub">Career Portal</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul>
+      <li class="menu-item active" data-section="dashboard"><i class="fa-solid fa-house"></i> Dashboard</li>
+      <li class="menu-item" data-section="profile"><i class="fa-solid fa-user"></i> Profile</li>
+      <li class="menu-item" data-section="jobs"><i class="fa-solid fa-briefcase"></i> Jobs</li>
+      <li class="menu-item" data-section="applications"><i class="fa-solid fa-paper-plane"></i> Applications</li>
+      <li class="menu-item" data-section="saved"><i class="fa-solid fa-bookmark"></i> Saved Jobs</li>
+      <li class="menu-item" data-section="discover"><i class="fa-solid fa-compass"></i> Discover</li>
+      <li class="menu-item" data-section="gigs"><i class="fa-solid fa-bolt"></i> On-Demand Gigs</li>
+      <li class="menu-item" data-section="messages"><i class="fa-solid fa-envelope"></i> Messages</li>
+      <li class="menu-item" data-section="interviews"><i class="fa-solid fa-calendar"></i> Interviews</li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-cta">
+    <i class="fa-solid fa-plus"></i> Apply for Gigs
+  </div>
+
+  <div class="sidebar-footer">
+    <ul>
+      <li class="menu-item"><i class="fa-solid fa-gear"></i> Settings</li>
+      <li class="menu-item" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+    </ul>
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-title" id="pageTitle">Dashboard</div>
+
+    <div class="topbar-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:var(--muted);font-size:13px;"></i>
+      <input placeholder="Search for gigs, roles…">
+    </div>
+
+    <div class="topbar-right">
+      <a href="/jobs" class="btn btn-ghost btn-sm">Direct Hires</a>
+      <a href="#" class="btn btn-ghost btn-sm">Resources</a>
+      <button class="icon-btn"><i class="fa-regular fa-bell"></i></button>
+      <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
+      <div class="avatar" id="userAvatar">U</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ========== DASHBOARD ========== -->
+    <div id="dashboard" class="section active">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <div>
+          <h2 style="font-size:20px;font-weight:700;color:var(--dark);">Welcome back, <span id="welcomeName">User</span>! 👋</h2>
+          <p style="font-size:13px;margin-top:2px;">Here is what's happening with your career today.</p>
+        </div>
+        <button class="btn btn-primary"><i class="fa-solid fa-bolt"></i> Apply for Gigs</button>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-label">Applications</div>
+          <div class="stat-value" id="appliedCount">0</div>
+          <div class="stat-delta" id="appliedDelta"></div>
+          <div class="stat-underline" style="background:var(--info);"></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Saved Jobs</div>
+          <div class="stat-value" id="savedCount">0</div>
+          <div class="stat-underline" style="background:var(--primary);"></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Profile Views</div>
+          <div class="stat-value" id="viewCount">0</div>
+          <div class="stat-underline" style="background:var(--success);"></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Interviews</div>
+          <div class="stat-value" id="interviewCount">0</div>
+          <div class="stat-underline" style="background:var(--warning);"></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Messages</div>
+          <div class="stat-value" id="messageCount">0</div>
+          <div class="stat-underline" style="background:var(--error);"></div>
+        </div>
+        <div class="stat-box" style="cursor:pointer;" onclick="document.querySelector('[data-section=profile]').click()">
+          <div class="stat-label">Profile Completion</div>
+          <div class="stat-value" id="profileCompletion" style="font-size:22px;">0%</div>
+          <div class="progress-bar-wrap mt-8">
+            <div class="progress-bar amber" id="completionBar" style="width:0%"></div>
+          </div>
+          <div style="font-size:11px;color:var(--info);margin-top:6px;font-weight:600;">Update Profile →</div>
+        </div>
+      </div>
+
+      <!-- 2-COL LAYOUT -->
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;">
+
+        <!-- LEFT -->
+        <div>
+          <!-- Recommended Jobs -->
+          <div class="card card-body mb-16">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <h3>Recommended for You</h3>
+              <div style="display:flex;gap:6px;">
+                <button class="icon-btn" style="border:1px solid var(--border);border-radius:6px;"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="icon-btn" style="border:1px solid var(--border);border-radius:6px;"><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+            </div>
+            <div id="recommendedJobs" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div style="color:var(--muted);font-size:13px;grid-column:1/-1;">Loading…</div>
+            </div>
+          </div>
+
+          <!-- Weekly Insights -->
+          <div class="card card-body">
+            <h3 style="margin-bottom:16px;">Weekly Performance Insights</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">Impression Growth</div>
+                <div style="font-size:28px;font-weight:800;color:var(--dark);margin-top:4px;">+2,480</div>
+                <div style="font-size:12px;font-weight:600;color:var(--success);">vs last week</div>
+                <div style="margin-top:12px;">
+                  <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">Recruiter Responses</div>
+                  <div style="font-size:24px;font-weight:800;color:var(--dark);margin-top:2px;">12</div>
+                  <div style="font-size:12px;color:var(--warning);font-weight:600;">Action Required</div>
+                </div>
+              </div>
+              <div style="background:var(--light-2);border-radius:var(--radius);padding:20px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <div style="font-size:36px;font-weight:800;color:var(--dark);">94%</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:4px;">Matching Score with "UI Designer" roles</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <!-- Recent Activity -->
+          <div class="card card-body">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <h3>Recent Activity</h3>
+              <button class="icon-btn"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+            <div id="activityFeed">
+              <div class="activity-item">
+                <div class="activity-dot blue"></div>
+                <div><div style="font-size:13px;font-weight:600;color:var(--dark);">Applied to Google</div><div style="font-size:11px;color:var(--muted);">Senior Product Designer • 2h ago</div></div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot amber"></div>
+                <div>
+                  <div style="font-size:13px;font-weight:600;color:var(--dark);">Interview Scheduled</div>
+                  <div style="font-size:11px;color:var(--muted);">Microsoft via WorkYaar • 5h ago</div>
+                  <div style="margin-top:6px;padding:8px 10px;background:var(--light-2);border-radius:6px;font-size:12px;color:var(--dark);">Tomorrow, 10:30 AM IST</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot green"></div>
+                <div><div style="font-size:13px;font-weight:600;color:var(--dark);">Profile Verified</div><div style="font-size:11px;color:var(--muted);">Skills badge updated • Yesterday</div></div>
+              </div>
+            </div>
+            <div style="text-align:center;margin-top:12px;">
+              <a href="#" style="font-size:12px;font-weight:600;color:var(--primary);">View All Activity</a>
+            </div>
+          </div>
+
+          <!-- Hot Gigs -->
+          <div class="card card-body" style="background:var(--sidebar-bg);border-color:transparent;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+              <i class="fa-solid fa-bolt" style="color:var(--primary);"></i>
+              <h3 style="color:#fff;">Hot Gigs Today</h3>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-radius:var(--radius-sm);padding:12px;margin-bottom:10px;cursor:pointer;">
+              <div style="font-size:10px;font-weight:700;color:var(--primary);margin-bottom:4px;">FIXED PRICE: $500</div>
+              <div style="font-size:13px;font-weight:600;color:#fff;">Design a Landing Page for Fintech Startup</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;">24 applicants</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-radius:var(--radius-sm);padding:12px;margin-bottom:14px;cursor:pointer;">
+              <div style="font-size:10px;font-weight:700;color:var(--primary);margin-bottom:4px;">HOURLY: $45-60</div>
+              <div style="font-size:13px;font-weight:600;color:#fff;">QA Testing for Mobile E-commerce App</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;">10 applicants</div>
+            </div>
+            <button class="btn btn-primary btn-full">Browse All Gigs</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PROFILE ========== -->
+    <div id="profile" class="section">
+      <div class="page-header"><h2>Profile</h2></div>
+
+      <div style="display:grid;grid-template-columns:280px 1fr;gap:20px;">
+        <!-- Profile Card -->
+        <div>
+          <div class="card card-body" style="text-align:center;margin-bottom:14px;">
+            <div style="width:90px;height:90px;border-radius:12px;background:var(--light-2);border:2px solid var(--border);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:var(--primary);" id="profileAvatar">U</div>
+            <div style="font-size:18px;font-weight:800;color:var(--dark);" id="previewName">Your Name</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:2px;" id="previewTitle">Professional Title</div>
+            <div style="display:flex;gap:6px;justify-content:center;margin-top:10px;">
+              <span class="badge badge-blue">Open to Gigs</span>
+              <span class="badge badge-primary">Top 1% Talent</span>
+            </div>
+            <div class="divider"></div>
+            <div style="text-align:left;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:8px;">
+              <div><i class="fa-solid fa-location-dot" style="width:16px;"></i> <span id="previewLocation">Location</span></div>
+              <div><i class="fa-solid fa-envelope" style="width:16px;"></i> <span id="previewEmail">email</span></div>
+            </div>
+            <div class="divider"></div>
+            <div style="text-align:left;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <span style="font-size:12px;font-weight:600;color:var(--muted);">Profile Strength</span>
+                <span style="font-size:12px;font-weight:700;color:var(--info);" id="strengthPct">0%</span>
+              </div>
+              <div class="progress-bar-wrap"><div class="progress-bar" id="strengthBar" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div class="card card-body">
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Core Competencies</div>
+            <div id="skillsWrap" style="display:flex;flex-wrap:wrap;gap:6px;">
+              <span class="tag">React/Next.js</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">AWS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="card card-body">
+          <div class="tabs">
+            <div class="profile-tab active" data-tab="profileTab">Profile Details</div>
+            <div class="profile-tab" data-tab="resumeTab">Resume/CV</div>
+            <div class="profile-tab" data-tab="prefTab">Preferences</div>
+            <div class="profile-tab" data-tab="socialTab">Social Profiles</div>
+          </div>
+
+          <!-- Profile Details -->
+          <div id="profileTab" class="profile-content active">
+            <div class="grid-responsive">
+              <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="full_name" placeholder="Enter your full name" autocomplete="name"></div>
+              <div class="form-group"><label class="form-label">Professional Title</label><input class="form-input" id="prof_title" placeholder="e.g. Senior Full-Stack Developer" autocomplete="organization-title"></div>
+              <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="email" placeholder="email@example.com" disabled autocomplete="email"></div>
+              <div class="form-group"><label class="form-label">Mobile</label><input class="form-input" id="mobile" placeholder="e.g. +1 123 456 7890" autocomplete="tel"></div>
+              <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="location" placeholder="e.g. New York, NY" autocomplete="address-level2"></div>
+              <div class="form-group"><label class="form-label">Years of Experience</label>
+                <select id="experience">
+                  <option value="">Select experience</option><option>Fresher</option><option>1-2 Years</option><option>3-5 Years</option><option>6-9 Years</option><option>10+ Years</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group"><label class="form-label">Professional Summary</label><textarea class="form-input" id="summary" placeholder="Briefly describe your professional background and key achievements…" style="min-height:100px;"></textarea></div>
+            <div class="flex-end">
+              <button class="btn btn-outline" id="editBtn" onclick="enableEdit()">Edit Profile</button>
+              <button class="btn btn-primary" id="saveBtn" onclick="saveProfile()" style="display:none;">Save Changes</button>
+            </div>
+          </div>
+
+          <!-- Resume -->
+          <div id="resumeTab" class="profile-content">
+            <p style="font-size:13px;margin-bottom:16px;">Upload PDF or Word Resume</p>
+            <input type="file" id="resumeUpload" accept=".pdf,.doc,.docx" class="upload-zone" style="padding:28px;text-align:center;">
+            <button class="btn btn-primary mt-12" onclick="uploadResume()">Upload Resume</button>
+            <div id="resumeStatus" class="mt-16">
+              <div style="padding:14px;border:1px dashed var(--border);border-radius:var(--radius);background:var(--light);color:var(--muted);font-size:13px;">No resume uploaded yet</div>
+            </div>
+          </div>
+
+          <!-- Preferences -->
+          <div id="prefTab" class="profile-content">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div class="form-group"><label class="form-label">Preferred Location</label><input class="form-input" id="pref_location" placeholder="Remote / Bangalore" autocomplete="address-level2"></div>
+              <div class="form-group"><label class="form-label">Expected Salary</label><input class="form-input" id="pref_salary" placeholder="$120k – $150k" autocomplete="off"></div>
+            </div>
+            <button class="btn btn-primary" onclick="savePreferences()">Save Preferences</button>
+          </div>
+
+          <!-- Social -->
+          <div id="socialTab" class="profile-content">
+            <div class="form-group"><label class="form-label">LinkedIn URL</label><input class="form-input" id="linkedin" placeholder="https://linkedin.com/in/…" autocomplete="url"></div>
+            <div class="form-group"><label class="form-label">GitHub URL</label><input class="form-input" id="github" placeholder="https://github.com/…" autocomplete="url"></div>
+            <div class="form-group"><label class="form-label">Portfolio URL</label><input class="form-input" id="portfolio" placeholder="https://…" autocomplete="url"></div>
+            <button class="btn btn-primary" onclick="saveSocial()">Save Social Profiles</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== JOBS ========== -->
+    <div id="jobs" class="section">
+      <div class="page-header"><h2>Discover New Opportunities</h2><p>Find your next career leap with AI-curated roles matching your professional trajectory.</p></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+        <div class="topbar-search" style="max-width:300px;"><i class="fa-solid fa-magnifying-glass" style="color:var(--muted);font-size:13px;"></i><input id="jobSearch" placeholder="Job Title, Skills, or Company"></div>
+        <button class="btn btn-outline btn-sm"><i class="fa-solid fa-sliders"></i> Filters</button>
+        <div style="margin-left:auto;display:flex;gap:6px;">
+          <button class="btn btn-ghost btn-sm">List View</button>
+          <button class="btn btn-ghost btn-sm">Grid View</button>
+        </div>
+      </div>
+      <div id="jobListings"><div style="color:var(--muted);font-size:13px;">Loading jobs…</div></div>
+    </div>
+
+    <!-- ========== APPLICATIONS ========== -->
+    <div id="applications" class="section">
+      <div class="page-header"><h2>Applications</h2></div>
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;">
+        <div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;">
+            <div class="stat-box"><div class="stat-label">Active</div><div class="stat-value" id="activeApps">0</div><div class="stat-underline" style="background:var(--info);"></div></div>
+            <div class="stat-box"><div class="stat-label">Interviews</div><div class="stat-value" id="interviewApps">0</div><div class="stat-underline" style="background:var(--primary);"></div></div>
+            <div class="stat-box"><div class="stat-label">Offers</div><div class="stat-value" id="offerApps">0</div><div class="stat-underline" style="background:var(--success);"></div></div>
+            <div class="stat-box"><div class="stat-label">Archived</div><div class="stat-value" id="archivedApps">0</div><div class="stat-underline" style="background:var(--muted-light);"></div></div>
+          </div>
+          <h3 style="margin-bottom:14px;">Recent Activity</h3>
+          <div id="applicationsList"><div style="color:var(--muted);font-size:13px;">Loading applications…</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card card-body" style="background:var(--sidebar-bg);border:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <h3 style="color:#fff;font-size:15px;">Upcoming Interviews</h3>
+              <i class="fa-regular fa-calendar" style="color:var(--primary);"></i>
+            </div>
+            <div id="upcomingInterviews" style="color:rgba(255,255,255,0.5);font-size:13px;">No interviews scheduled</div>
+            <button class="btn btn-outline btn-full mt-12" style="border-color:rgba(255,255,255,0.2);color:#fff;margin-top:12px;">View Full Schedule</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SAVED ========== -->
+    <div id="saved" class="section">
+      <div class="page-header"><h2>Saved Jobs</h2></div>
+      <div id="savedJobsList"><div style="color:var(--muted);font-size:13px;">No saved jobs yet.</div></div>
+    </div>
+
+    <!-- ========== DISCOVER ========== -->
+    <div id="discover" class="section">
+      <div class="page-header"><h2>Discover</h2><p>Browse top opportunities curated for your profile.</p></div>
+      <div id="discoverList"><div style="color:var(--muted);font-size:13px;">Loading…</div></div>
+    </div>
+
+    <!-- ========== GIGS ========== -->
+    <div id="gigs" class="section">
+      <div class="page-header"><h2>On-Demand Gigs</h2><p>Quick freelance projects posted daily.</p></div>
+      <div id="gigsList"><div style="color:var(--muted);font-size:13px;">Loading gigs…</div></div>
+    </div>
+
+    <!-- ========== MESSAGES ========== -->
+    <div id="messages" class="section">
+      <div class="page-header"><h2>Messages</h2></div>
+      <div id="messagesList"><div style="color:var(--muted);font-size:13px;">No messages yet.</div></div>
+    </div>
+
+    <!-- ========== INTERVIEWS ========== -->
+    <div id="interviews" class="section">
+      <div class="page-header"><h2>Interviews</h2></div>
+      <div id="interviewsList"><div style="color:var(--muted);font-size:13px;">No interviews scheduled.</div></div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app-layout -->
+
+<script src="/js/jobseeker-dashboard.js"></script>
+<script>
+// ─── NAVIGATION ───
+document.querySelectorAll('.menu-item[data-section]').forEach(item=>{
+  item.addEventListener('click',()=>{
+    document.querySelectorAll('.menu-item').forEach(m=>m.classList.remove('active'));
+    item.classList.add('active');
+    const sec = item.dataset.section;
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.getElementById(sec)?.classList.add('active');
+    document.getElementById('pageTitle').textContent =
+      item.textContent.trim();
+  });
+});
+
+// ─── PROFILE TABS ───
+document.querySelectorAll('.profile-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.profile-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.profile-content').forEach(c=>c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab)?.classList.add('active');
+  });
+});
+
+// ─── LOGOUT ───
+document.getElementById('logoutBtn').addEventListener('click',()=>{
+  localStorage.clear(); window.location.href='/login.html';
+});
+
+// ─── ENABLE EDIT ───
+function enableEdit(){
+  ['full_name','mobile','location','experience','summary','prof_title'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.disabled=false;
+  });
+  document.getElementById('editBtn').style.display='none';
+  document.getElementById('saveBtn').style.display='inline-flex';
+}
+</script>
+</body>
+</html>

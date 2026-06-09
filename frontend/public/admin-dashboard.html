@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkYaar Admin Dashboard</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link href="/css/global.css" rel="stylesheet">
+<link href="/css/pages/admin-dashboard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div id="loader">Loading...</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<div class="logo">
+<img src="/images/workyaar-logo.png">
+</div>
+
+<ul class="menu">
+<li data-page="dashboard" class="active">Dashboard</li>
+<li data-page="users">Users</li>
+<li data-page="jobs">Jobs</li>
+<li onclick="logout()">Logout</li>
+</ul>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="topbar">
+<h2 id="title">Admin Dashboard</h2>
+<button onclick="loadDashboard()">ðŸ”„ Refresh</button>
+</div>
+
+<div class="content">
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section active">
+
+<div class="grid">
+<div class="stat"><h4>Users</h4><h2 id="usersCount">0</h2></div>
+<div class="stat"><h4>Jobs</h4><h2 id="jobsCount">0</h2></div>
+<div class="stat"><h4>Applications</h4><h2 id="apps">0</h2></div>
+<div class="stat"><h4>Companies</h4><h2 id="companies">0</h2></div>
+</div>
+
+<div class="card">
+<canvas id="chart"></canvas>
+</div>
+
+</div>
+
+<!-- USERS -->
+<div id="users" class="section">
+<div class="card">
+
+<div class="filters">
+<input id="userSearch" placeholder="Search user">
+<select id="roleFilter">
+<option value="">All Roles</option>
+<option value="1">Admin</option>
+<option value="2">Employer</option>
+<option value="3">Jobseeker</option>
+</select>
+<button class="blue" onclick="loadUsers()">Filter</button>
+</div>
+
+<table id="usersTable">
+<thead>
+<tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Action</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+
+</div>
+</div>
+
+<!-- JOBS -->
+<div id="jobs" class="section">
+<div class="card">
+
+<div class="filters">
+<input id="jobSearch" placeholder="Search job">
+<select id="jobStatus">
+<option value="">All</option>
+<option value="1">Approved</option>
+<option value="0">Pending</option>
+</select>
+<button class="blue" onclick="loadJobs()">Filter</button>
+</div>
+
+<table id="jobsTable">
+<thead>
+<tr><th>Title</th><th>Employer</th><th>Status</th><th>Action</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+const API="/api/admin";
+const token=localStorage.getItem("token");
+
+/* LOADER */
+function showLoader(){ loader.style.display="block"; }
+function hideLoader(){ loader.style.display="none"; }
+
+/* COMMON API */
+async function api(url, options={}){
+const res=await fetch(API+url,{
+...options,
+headers:{
+"Content-Type":"application/json",
+Authorization:`Bearer ${token}`
+}
+});
+
+if(res.status===401){
+alert("Session expired");
+localStorage.clear();
+location.href="/login.html";
+return;
+}
+
+return res.json();
+}
+
+/* NAV */
+document.querySelectorAll(".menu li[data-page]").forEach(i=>{
+i.onclick=()=>{
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(i.dataset.page).classList.add("active");
+title.innerText=i.innerText;
+
+if(i.dataset.page==="users") loadUsers();
+if(i.dataset.page==="jobs") loadJobs();
+};
+});
+
+/* DASHBOARD */
+let chart;
+
+async function loadDashboard(){
+showLoader();
+
+const d=await api("/dashboard");
+if(!d) return;
+
+usersCount.innerText=d.stats.users;
+jobsCount.innerText=d.stats.jobs;
+apps.innerText=d.stats.applications;
+companies.innerText=d.stats.companies;
+
+if(chart) chart.destroy();
+
+chart=new Chart(document.getElementById("chart"),{
+type:"bar",
+data:{
+labels:["Users","Jobs","Applications","Companies"],
+datasets:[{label:"Stats",data:[
+d.stats.users,d.stats.jobs,d.stats.applications,d.stats.companies
+]}]
+}
+});
+
+hideLoader();
+}
+
+/* USERS */
+async function loadUsers(){
+showLoader();
+
+const d=await api("/users");
+if(!d) return;
+
+let search=userSearch.value.toLowerCase();
+let role=roleFilter.value;
+
+let html="";
+
+if(!d.users || d.users.length===0){
+usersTable.querySelector("tbody").innerHTML =
+`<tr><td colspan="5">No users found</td></tr>`;
+hideLoader();
+return;
+}
+
+d.users.forEach(u=>{
+if(search && !u.name.toLowerCase().includes(search)) return;
+if(role && u.role_id!=role) return;
+
+html+=`<tr>
+<td>${u.name}</td>
+<td>${u.email}</td>
+<td>${u.role_name}</td>
+<td>${u.is_active?"Active":"Blocked"}</td>
+<td>
+<button onclick="blockUser(${u.id},0)">Block</button>
+<button onclick="blockUser(${u.id},1)">Unblock</button>
+<button class="red" onclick="deleteUser(${u.id})">Delete</button>
+</td>
+</tr>`;
+});
+
+usersTable.querySelector("tbody").innerHTML=html;
+
+hideLoader();
+}
+
+async function blockUser(id,status){
+await api(`/users/${id}/status`,{
+method:"PUT",
+body:JSON.stringify({status})
+});
+loadUsers();
+}
+
+async function deleteUser(id){
+if(!confirm("Delete user?")) return;
+
+await api(`/users/${id}`,{method:"DELETE"});
+loadUsers();
+}
+
+/* JOBS */
+async function loadJobs(){
+showLoader();
+
+const d=await api("/jobs");
+if(!d) return;
+
+let search=jobSearch.value.toLowerCase();
+let status=jobStatus.value;
+
+let html="";
+
+if(!d.jobs || d.jobs.length===0){
+jobsTable.querySelector("tbody").innerHTML =
+`<tr><td colspan="4">No jobs found</td></tr>`;
+hideLoader();
+return;
+}
+
+d.jobs.forEach(j=>{
+if(search && !j.title.toLowerCase().includes(search)) return;
+if(status && j.is_approved!=status) return;
+
+html+=`<tr>
+<td>${j.title}</td>
+<td>${j.company_name || "-"}</td>
+<td>${j.is_approved?"Approved":"Pending"}</td>
+<td>
+<button class="green" onclick="approveJob(${j.id},1)">Approve</button>
+<button class="red" onclick="approveJob(${j.id},0)">Reject</button>
+</td>
+</tr>`;
+});
+
+jobsTable.querySelector("tbody").innerHTML=html;
+
+hideLoader();
+}
+
+async function approveJob(id,status){
+await api(`/jobs/${id}/status`,{
+method:"PUT",
+body:JSON.stringify({status})
+});
+loadJobs();
+}
+
+/* LOGOUT */
+function logout(){
+localStorage.removeItem("token");
+location.href="/login.html";
+}
+
+/* INIT */
+loadDashboard();
+</script>
+
+</body>
+</html>

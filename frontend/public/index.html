@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorkYaar | Elite Talent, Playfully Curated</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="/css/global.css" rel="stylesheet">
+  <link href="/css/pages/index.css" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-nav">
+      <a class="brand" href="/" aria-label="WorkYaar home">
+        <span class="brand-mark">W</span>
+        <span class="brand-word">WorkYaar<span>.</span></span>
+      </a>
+
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a class="active" href="/jobs.html">Find Jobs</a>
+        <a href="/register.html">Hire Talent</a>
+        <a href="/browse-jobs.html">Resources</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-link" href="/login.html">Log In</a>
+        <a class="btn btn-primary" href="/register.html">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="page-shell hero-shell">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+            <span>Join the top 1% tech talent</span>
+          </div>
+
+          <h1>Hire elite talent, <span>playfully curated</span> for your next big thing.</h1>
+          <p>WorkYaar connects world-class creators with industry-defining companies. Minimalist search, maximum impact.</p>
+
+          <form class="hero-search" id="heroSearchForm">
+            <label class="search-field" for="heroSearchInput">
+              <span class="material-symbols-outlined" aria-hidden="true">search</span>
+              <input id="heroSearchInput" name="search" type="search" placeholder="Search roles, skills, or companies...">
+            </label>
+            <button class="btn btn-primary btn-large" type="submit">Explore Roles</button>
+          </form>
+        </div>
+
+        <div class="banner-frame">
+          <img class="home-banner-img" src="/images/home-banner.svg" alt="Modern workspace with hiring dashboard">
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section section-soft">
+      <div class="page-shell">
+        <div class="section-header">
+          <div>
+            <h2>Trending Categories</h2>
+            <p>What's hot in the global talent market right now.</p>
+          </div>
+          <a class="section-link" href="/jobs.html">View all <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        </div>
+
+        <div class="category-grid" id="categoryGrid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="page-shell">
+        <div class="section-header centered">
+          <div>
+            <h2>Premier Roles</h2>
+            <p>Hand-picked opportunities at high-growth startups and Fortune 500 giants.</p>
+          </div>
+        </div>
+
+        <div class="roles-list" id="rolesList" aria-live="polite"></div>
+
+        <div class="section-action">
+          <a class="btn btn-outline" href="/jobs.html">Discover All 2,400+ Roles</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="page-shell">
+        <div class="cta-card">
+          <h2>Ready to find your yaar?</h2>
+          <p>Whether you're hiring elite talent or looking for your next career-defining role, we've got you covered.</p>
+          <div class="cta-actions">
+            <a class="btn btn-light" href="/register.html">Join as Talent</a>
+            <a class="btn btn-glass" href="/register.html">Post a Job</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-shell footer-shell">
+      <div>
+        <a class="brand footer-brand" href="/" aria-label="WorkYaar home">
+          <span class="brand-mark">W</span>
+          <span class="brand-word">WorkYaar<span>.</span></span>
+        </a>
+        <p>&copy; 2026 WorkYaar. Elite talent, playfully curated.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="/">About Us</a>
+        <a href="/jobs.html">Careers</a>
+        <a href="/">Privacy Policy</a>
+        <a href="/">Terms of Service</a>
+        <a href="/login.html">Support</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkYaar – Verified Remote & Flexible Jobs</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="/css/theme.css?v=3" rel="stylesheet">
+<style>
+  /* Local overrides for perfect fidelity */
+  body { background: #FAFAFA; }
+  header {
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+  .nav-links { display: flex; gap: 32px; font-size: 13px; font-weight: 500; color: var(--dark); }
+  .nav-actions { display: flex; align-items: center; gap: 20px; font-size: 13px; font-weight: 500; }
+  .btn-blue { background: #0066FF; color: white; border-radius: 6px; padding: 10px 24px; font-weight: 600; border: none; cursor: pointer; text-decoration: none; }
+  
+  .hero {
+    background: linear-gradient(180deg, #F0F6FF 0%, #FFFFFF 100%);
+    padding: 80px 24px 60px;
+    text-align: center;
+  }
+  .badge-hero {
+    background: #E5EFFF; color: #0066FF; font-size: 10px; font-weight: 700;
+    padding: 6px 16px; border-radius: 99px; display: inline-block; margin-bottom: 24px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: 64px; font-weight: 800; color: #111; max-width: 900px; margin: 0 auto; line-height: 1.1; letter-spacing: -0.02em;
+  }
+  .hero h1 span { color: #0066FF; }
+  .hero p {
+    font-size: 18px; color: #555; max-width: 600px; margin: 24px auto 40px; line-height: 1.5;
+  }
+  
+  .search-box {
+    background: #FFF; border: 1px solid var(--border); border-radius: 8px;
+    display: flex; max-width: 800px; margin: 0 auto; padding: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  }
+  .search-input {
+    flex: 1; display: flex; align-items: center; gap: 12px; padding: 0 16px;
+  }
+  .search-input input { border: none; outline: none; width: 100%; font-size: 15px; color: #333; }
+  .search-divider { width: 1px; background: var(--border); margin: 8px 0; }
+  .search-btn {
+    background: #0066FF; color: #FFF; border: none; border-radius: 6px;
+    padding: 0 32px; font-weight: 600; font-size: 15px; cursor: pointer;
+  }
+
+  .trusted { margin-top: 60px; }
+  .trusted p { font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+  .trusted-logos { display: flex; justify-content: center; gap: 40px; filter: grayscale(100%) opacity(0.4); }
+
+  .stats-section {
+    display: flex; justify-content: center; gap: 120px; padding: 80px 24px; background: #FFF;
+  }
+  .stat-item h2 { font-size: 48px; font-weight: 800; color: #111; display: flex; align-items: center; justify-content: center; }
+  .stat-item h2 span { color: #0066FF; }
+  .stat-item p { font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; text-align: center; }
+
+  .categories-section { padding: 60px 24px; max-width: 1280px; margin: 0 auto; }
+  .sec-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; }
+  .sec-header h3 { font-size: 24px; font-weight: 700; color: #111; }
+  .sec-header a { color: #0066FF; font-size: 14px; font-weight: 600; text-decoration: none; }
+  
+  .cat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+  .cat-card { background: #FFF; border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; }
+  .cat-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); transform: translateY(-2px); border-color: #DDD; }
+  .cat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 20px; }
+  .cat-card span { font-size: 13px; font-weight: 600; color: #111; }
+
+  .featured-section { padding: 60px 24px; max-width: 1280px; margin: 0 auto; text-align: center; }
+  .featured-section > h3 { font-size: 24px; font-weight: 700; color: #111; margin-bottom: 8px; }
+  .featured-section > p { color: #666; font-size: 15px; margin-bottom: 40px; }
+
+  .jobs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left; }
+  .job-card { background: #FFF; border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+  .job-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .job-logo { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: #FFF; }
+  .job-badge { background: #F1F5F9; color: #64748B; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 99px; text-transform: uppercase; }
+  .job-badge.new { background: #DBEAFE; color: #1D4ED8; }
+  .job-badge.popular { background: #E0E7FF; color: #4338CA; }
+  .job-badge.closing { background: #FCE7F3; color: #BE185D; }
+  
+  .job-title { font-size: 18px; font-weight: 700; color: #111; margin-bottom: 4px; }
+  .job-company { font-size: 13px; color: #666; margin-bottom: 16px; }
+  
+  .job-tags { display: flex; gap: 8px; margin-bottom: 24px; }
+  .job-tag { background: #F8FAFC; border: 1px solid var(--border); color: #475569; font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 6px; display: flex; align-items: center; gap: 6px; }
+  
+  .job-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 16px; }
+  .job-salary { font-size: 15px; font-weight: 700; color: #111; }
+  .job-time { font-size: 12px; color: #888; }
+
+  .view-all-btn { background: #FFF; border: 1px solid var(--border); padding: 12px 32px; border-radius: 8px; font-size: 14px; font-weight: 600; color: #111; cursor: pointer; margin-top: 40px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+
+  .cta-banner { background: #CF9F24; padding: 80px 24px; text-align: center; color: #FFF; }
+  .cta-banner h2 { font-size: 40px; font-weight: 800; margin-bottom: 16px; }
+  .cta-banner p { font-size: 16px; max-width: 600px; margin: 0 auto 32px; line-height: 1.5; font-weight: 500; }
+  .cta-buttons { display: flex; justify-content: center; gap: 16px; }
+  .cta-btn-white { background: #FFF; color: #0066FF; padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 15px; border: none; cursor: pointer; text-decoration: none; }
+  .cta-btn-outline { background: rgba(0,0,0,0.15); color: #FFF; padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 15px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; text-decoration: none; }
+
+  footer { background: #1C2B4A; padding: 60px 24px 40px; color: #FFF; }
+  .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+  .footer-col h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #FFF; margin-bottom: 20px; }
+  .footer-col ul { list-style: none; padding: 0; margin: 0; }
+  .footer-col ul li { margin-bottom: 12px; }
+  .footer-col ul a { color: #94A3B8; font-size: 14px; text-decoration: none; }
+  .footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; color: #94A3B8; font-size: 13px; }
+  .footer-social { display: flex; gap: 16px; }
+  .footer-social a { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #FFF; text-decoration: none; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="/" style="font-size: 20px; font-weight: 800; color: #111; text-decoration: none;">WorkYaar<span style="color: #0066FF;">.</span></a>
+    <div class="nav-links">
+      <a href="#">Career Advice</a>
+      <a href="#">Events</a>
+      <a href="#">Internships</a>
+      <a href="#">Campus Hiring</a>
+      <a href="/jobs.html">Browse Jobs</a>
+    </div>
+    <div class="nav-actions">
+      <a href="/login.html" style="color: #111; text-decoration: none;">Login</a>
+      <a href="/register.html" class="btn-blue">Post a Job</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="badge-hero">WORLD'S #1 JOB BOARD FOR REMOTE WORK</div>
+  <h1>Find Verified Remote<br>& Flexible <span>Jobs Faster</span></h1>
+  <p>AI-powered job matching trusted by 2M+ professionals and 14,000+ fast-growing companies worldwide.</p>
+  
+  <div class="search-box">
+    <div class="search-input">
+      <i class="fa-solid fa-magnifying-glass" style="color: #0066FF;"></i>
+      <input type="text" id="heroSkill" placeholder="Job title, skills or company">
+    </div>
+    <div class="search-divider"></div>
+    <div class="search-input">
+      <i class="fa-solid fa-location-dot" style="color: #0066FF;"></i>
+      <input type="text" id="heroLoc" placeholder="Location (city or remote)">
+    </div>
+    <button class="search-btn" onclick="performSearch()">Search Jobs</button>
+  </div>
+
+  <div class="trusted">
+    <p>TRUSTED BY INDUSTRY LEADERS</p>
+    <div class="trusted-logos">
+      <i class="fa-brands fa-apple" style="font-size: 24px;"></i>
+      <i class="fa-brands fa-meta" style="font-size: 24px;"></i>
+      <i class="fa-brands fa-amazon" style="font-size: 24px;"></i>
+      <i class="fa-brands fa-microsoft" style="font-size: 24px;"></i>
+      <i class="fa-brands fa-google" style="font-size: 24px;"></i>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="stat-item">
+    <h2>32K<span>+</span></h2>
+    <p>VERIFIED JOBS</p>
+  </div>
+  <div class="stat-item">
+    <h2>14K<span>+</span></h2>
+    <p>COMPANIES</p>
+  </div>
+  <div class="stat-item">
+    <h2>2M<span>+</span></h2>
+    <p>JOBSEEKERS</p>
+  </div>
+</section>
+
+<section class="categories-section">
+  <div class="sec-header">
+    <h3>Trending Categories</h3>
+    <a href="/jobs.html">Explore all &rarr;</a>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card">
+      <div class="cat-icon" style="background: #E5EFFF; color: #0066FF;"><i class="fa-solid fa-code"></i></div>
+      <span>Development</span>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon" style="background: #E0E7FF; color: #4338CA;"><i class="fa-solid fa-pen-nib"></i></div>
+      <span>Design</span>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon" style="background: #DCFCE7; color: #15803D;"><i class="fa-solid fa-chart-line"></i></div>
+      <span>Marketing</span>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon" style="background: #F3E8FF; color: #7E22CE;"><i class="fa-solid fa-users"></i></div>
+      <span>Management</span>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon" style="background: #FEF3C7; color: #B45309;"><i class="fa-solid fa-headset"></i></div>
+      <span>Support</span>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon" style="background: #FCE7F3; color: #BE185D;"><i class="fa-solid fa-dollar-sign"></i></div>
+      <span>Finance</span>
+    </div>
+  </div>
+</section>
+
+<section class="featured-section">
+  <h3>Featured Opportunities</h3>
+  <p>Hand-picked premium roles from top-tier tech companies hiring right now.</p>
+  
+  <div class="jobs-grid" id="featuredJobs">
+    <!-- Static mockups to match reference perfectly -->
+    <div class="job-card">
+      <div class="job-card-top">
+        <div class="job-logo" style="background: #0066FF;">D</div>
+        <div class="job-badge new">NEW</div>
+      </div>
+      <div class="job-title">Senior Frontend Developer</div>
+      <div class="job-company">Discord • San Francisco, CA</div>
+      <div class="job-tags">
+        <div class="job-tag"><i class="fa-solid fa-globe" style="color: #0066FF;"></i> Remote</div>
+        <div class="job-tag"><i class="fa-regular fa-clock" style="color: #64748B;"></i> Full-Time</div>
+      </div>
+      <div class="job-footer">
+        <div class="job-salary">$140k - $190k</div>
+        <div class="job-time">2 hours ago</div>
+      </div>
+    </div>
+
+    <div class="job-card">
+      <div class="job-card-top">
+        <div class="job-logo" style="background: #10B981;">S</div>
+        <div class="job-badge popular">POPULAR</div>
+      </div>
+      <div class="job-title">Staff Backend Engineer</div>
+      <div class="job-company">Spotify • Stockholm, SE</div>
+      <div class="job-tags">
+        <div class="job-tag"><i class="fa-solid fa-building" style="color: #0066FF;"></i> Hybrid</div>
+        <div class="job-tag"><i class="fa-regular fa-clock" style="color: #64748B;"></i> Full-Time</div>
+      </div>
+      <div class="job-footer">
+        <div class="job-salary">$160k - $220k</div>
+        <div class="job-time">5 hours ago</div>
+      </div>
+    </div>
+
+    <div class="job-card">
+      <div class="job-card-top">
+        <div class="job-logo" style="background: #EC4899;">F</div>
+        <div class="job-badge closing">CLOSING SOON</div>
+      </div>
+      <div class="job-title">Senior UI/UX Designer</div>
+      <div class="job-company">Figma • Remote World</div>
+      <div class="job-tags">
+        <div class="job-tag"><i class="fa-solid fa-globe" style="color: #EC4899;"></i> Remote</div>
+        <div class="job-tag"><i class="fa-solid fa-file-contract" style="color: #EC4899;"></i> Contract</div>
+      </div>
+      <div class="job-footer">
+        <div class="job-salary">$90 - $150 / hr</div>
+        <div class="job-time">1 day ago</div>
+      </div>
+    </div>
+  </div>
+
+  <a href="/jobs.html" class="view-all-btn">View All 1,340 Openings &rarr;</a>
+</section>
+
+<section class="cta-banner">
+  <h2>Hire Smarter with WorkYear</h2>
+  <p>Join 14,000+ companies that use <strong>our AI to find</strong>, screen, and hire top talent 3x faster than traditional boards.</p>
+  <div class="cta-buttons">
+    <a href="/register.html" class="cta-btn-white">Start Hiring Now</a>
+    <a href="#" class="cta-btn-outline">Schedule a Demo</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div style="font-size: 24px; font-weight: 800; color: #FFF; margin-bottom: 20px;">WorkYear<span style="color: #F5B731;">.</span></div>
+    </div>
+    <div class="footer-col">
+      <h4>PLATFORM</h4>
+      <ul>
+        <li><a href="#">Browse Jobs</a></li>
+        <li><a href="#">Remote Roles</a></li>
+        <li><a href="#">Job Alerts</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>EMPLOYERS</h4>
+      <ul>
+        <li><a href="#">Post a Job</a></li>
+        <li><a href="#">Candidate Search</a></li>
+        <li><a href="#">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>RESOURCES</h4>
+      <ul>
+        <li><a href="#">Career Blog</a></li>
+        <li><a href="#">Salaries</a></li>
+        <li><a href="#">Hiring Advice</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 WorkYear Inc. All rights reserved. Built with precision for the modern workforce.</div>
+    <div class="footer-social">
+      <a href="#"><i class="fa-solid fa-share-nodes"></i></a>
+      <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function performSearch() {
+  const skill = document.getElementById('heroSkill').value;
+  const loc = document.getElementById('heroLoc').value;
+  let url = '/jobs.html?';
+  if(skill) url += 'skill=' + encodeURIComponent(skill) + '&';
+  if(loc) url += 'location=' + encodeURIComponent(loc);
+  window.location.href = url;
+}
+</script>
+</body>
+</html>

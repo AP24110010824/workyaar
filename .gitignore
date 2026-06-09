@@ -1,0 +1,16 @@
+node_modules/
+backend/node_modules/
+config/node_modules/
+
+.env
+backend/.env
+config/.env
+
+*.log
+backend/tmp/
+config/tmp/
+
+backend/uploads/
+config/uploads/
+workyaar_temp/
+__MACOSX/
