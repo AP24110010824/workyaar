@@ -1,14 +1,15 @@
 const mysql = require("mysql2/promise");
-console.log("Connecting to DB with Host:", process.env.DB_HOST, "User:", process.env.DB_USER, "DB Name:", process.env.DB_NAME, "Port:", process.env.DB_PORT);
 
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER,
+  // Hardcoding the cloud host and port removes any environment variable name confusion
+  host: "mysql-2d0c5e30-workyaar.h.aivencloud.com",
+  port: 15177, 
+  user: process.env.DB_USER || "avnadmin",
   password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
+  database: process.env.DB_NAME || "workyaar_db",
   waitForConnections: true,
   connectionLimit: 10,
-   ssl: {
+  ssl: {
     rejectUnauthorized: false
   }
 });
