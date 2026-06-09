@@ -16,7 +16,7 @@
   <div class="employer-shell">
     <aside class="employer-sidebar" id="employerSidebar">
       <a class="employer-logo" href="/">
-        <span class="brand-icon">W</span>
+        <img class="brand-icon" src="/images/workyaar-mark.svg" alt="WorkYaar">
         <span>
           <strong>WorkYaar</strong>
           <small>Premium Talent</small>
@@ -24,18 +24,18 @@
       </a>
 
       <nav class="employer-nav" aria-label="Employer navigation">
-        <button class="menu-item active" data-section="dashboard" type="button"><i class="fa-solid fa-table-cells-large"></i> Overview</button>
-        <button class="menu-item" data-section="myjobs" type="button"><i class="fa-solid fa-briefcase"></i> Job Postings</button>
-        <button class="menu-item" data-section="applications" type="button"><i class="fa-solid fa-users"></i> Candidates</button>
-        <button class="menu-item" data-section="discover" type="button"><i class="fa-regular fa-compass"></i> Discover</button>
-        <button class="menu-item" data-section="profile" type="button"><i class="fa-solid fa-building"></i> Company Profile</button>
-        <button class="menu-item" data-section="postjob" type="button"><i class="fa-solid fa-plus"></i> Post a Job</button>
+        <a class="menu-item" data-section="dashboard" href="#dashboard"><i class="fa-solid fa-table-cells-large"></i> Overview</a>
+        <a class="menu-item" data-section="myjobs" href="#myjobs"><i class="fa-solid fa-briefcase"></i> Job Postings</a>
+        <a class="menu-item" data-section="applications" href="#applications"><i class="fa-solid fa-users"></i> Candidates</a>
+        <a class="menu-item active" data-section="discover" href="#discover"><i class="fa-regular fa-compass"></i> Discover</a>
+        <a class="menu-item" data-section="profile" href="#profile"><i class="fa-solid fa-building"></i> Company Profile</a>
+        <a class="menu-item" data-section="postjob" href="#postjob"><i class="fa-solid fa-plus"></i> Post a Job</a>
       </nav>
 
-      <button class="sidebar-post" data-section-jump="postjob" type="button">
+      <a class="sidebar-post" data-section-jump="postjob" href="#postjob">
         <i class="fa-solid fa-bolt"></i>
         Post a New Job
-      </button>
+      </a>
 
       <div class="sidebar-profile">
         <div class="avatar" id="companyAvatar">W</div>
@@ -54,7 +54,7 @@
     <main class="employer-main">
       <header class="employer-topbar">
         <div>
-          <span id="pageTitle">Overview</span>
+          <span id="pageTitle">Discover</span>
           <h1>Welcome back, <strong id="companyWelcome">InnovateTech</strong></h1>
           <p>Here is what is happening with your hiring pipeline today.</p>
         </div>
@@ -62,14 +62,14 @@
         <div class="topbar-actions">
           <label class="topbar-search">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" placeholder="Search candidates, roles...">
+            <input type="search" placeholder="Search for talent, roles, or companies...">
           </label>
           <button class="icon-button" type="button" aria-label="Notifications"><i class="fa-regular fa-bell"></i></button>
-          <button class="primary-action" data-section-jump="postjob" type="button"><i class="fa-solid fa-plus"></i> Post Job</button>
+          <a class="primary-action" data-section-jump="postjob" href="#postjob"><i class="fa-solid fa-plus"></i> Post Job</a>
         </div>
       </header>
 
-      <section id="dashboard" class="section active">
+      <section id="dashboard" class="section">
         <div class="stats-grid">
           <article class="stat-card">
             <span class="stat-icon blue"><i class="fa-solid fa-user-plus"></i></span>
@@ -104,7 +104,7 @@
                 <span>Hiring flow</span>
                 <h2>Active Job Postings</h2>
               </div>
-              <button class="text-button" data-section-jump="myjobs" type="button">View all</button>
+              <a class="text-button" data-section-jump="myjobs" href="#myjobs">View all</a>
             </div>
             <div class="posting-list" id="recentJobsList">Loading active postings...</div>
           </section>
@@ -129,7 +129,7 @@
                 <span>Top 1% talent</span>
                 <h2>Talent Matches</h2>
               </div>
-              <button class="text-button" data-section-jump="applications" type="button">Explore pool</button>
+              <a class="text-button" data-section-jump="applications" href="#applications">Explore pool</a>
             </div>
             <div class="talent-grid">
               <article class="talent-card">
@@ -174,7 +174,7 @@
             <span>Manage roles</span>
             <h2>Job Postings</h2>
           </div>
-          <button class="primary-action" data-section-jump="postjob" type="button"><i class="fa-solid fa-plus"></i> New Job</button>
+          <a class="primary-action" data-section-jump="postjob" href="#postjob"><i class="fa-solid fa-plus"></i> New Job</a>
         </div>
         <div class="table-card">
           <table>
@@ -207,14 +207,14 @@
         </div>
       </section>
 
-      <section id="discover" class="section">
+      <section id="discover" class="section active">
         <div class="discover-hero">
           <div>
             <span>Discover Top Talent & Roles</span>
             <h2>Connect with innovative companies and elite creators.</h2>
             <p>Curated, high-signal, and purely professional. Browse premium roles or invite top talent into your hiring pipeline.</p>
             <div class="discover-actions">
-              <button class="primary-action" data-section-jump="applications" type="button">Hire Top Talent <i class="fa-solid fa-arrow-right"></i></button>
+              <a class="primary-action" data-section-jump="applications" href="#applications">Hire Top Talent <i class="fa-solid fa-arrow-right"></i></a>
               <a class="secondary-action" href="/browse-jobs.html">Browse Roles</a>
             </div>
           </div>
@@ -296,7 +296,7 @@
               <i class="fa-solid fa-rocket"></i>
               <strong>Hiring for your team?</strong>
               <p>Get your role in front of the top 1% creators and engineers today.</p>
-              <button class="primary-action" data-section-jump="postjob" type="button">Post a Job Listing</button>
+              <a class="primary-action" data-section-jump="postjob" href="#postjob">Post a Job Listing</a>
             </div>
           </aside>
         </div>

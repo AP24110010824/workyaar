@@ -117,11 +117,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function bindNavigation() {
     document.querySelectorAll("[data-section]").forEach((item) => {
-      item.addEventListener("click", () => showSection(item.dataset.section));
+      item.addEventListener("click", (event) => {
+        event.preventDefault();
+        history.replaceState(null, "", item.getAttribute("href") || `#${item.dataset.section}`);
+        showSection(item.dataset.section);
+      });
     });
 
     document.querySelectorAll("[data-section-jump]").forEach((item) => {
-      item.addEventListener("click", () => showSection(item.dataset.sectionJump));
+      item.addEventListener("click", (event) => {
+        event.preventDefault();
+        history.replaceState(null, "", item.getAttribute("href") || `#${item.dataset.sectionJump}`);
+        showSection(item.dataset.sectionJump);
+      });
     });
 
     safe("employerMenuBtn")?.addEventListener("click", () => {
@@ -413,4 +421,9 @@ document.addEventListener("DOMContentLoaded", () => {
   loadCompanyProfile();
   loadJobs();
   loadApplications();
+
+  const initialSection = window.location.hash?.replace("#", "");
+  if (initialSection && safe(initialSection)) {
+    showSection(initialSection);
+  }
 });

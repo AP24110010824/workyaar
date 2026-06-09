@@ -169,7 +169,7 @@ app.use((err, req, res, next) => {
 /* =====================================================
    START SERVER
 ===================================================== */
-const PORT = 5002;
+const PORT = process.env.PORT || 5002;
 
 app.listen(PORT, () => {
   console.log(`✅ WorkYaar API running on port ${PORT}`);

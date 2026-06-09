@@ -31,15 +31,12 @@
 }
 
 .brand-icon {
-  display: grid;
-  place-items: center;
   width: 28px;
   height: 28px;
+  flex: 0 0 28px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #6f47b5, #005da7);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 900;
+  object-fit: contain;
+  box-shadow: 0 8px 18px rgba(0, 93, 167, 0.18);
 }
 
 .employer-logo strong,
